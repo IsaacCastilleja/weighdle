@@ -6,10 +6,7 @@ export function Game() {
         <>
             <div className={styles.GameContainer}>
                 <div className={styles.Game}></div>
-                <div>
-                    <Guess />
-                    <Guess />
-                </div>
+                <Guess />
             </div>
         </>
     );

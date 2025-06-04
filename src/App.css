@@ -1,8 +1,10 @@
 #root {
-  max-height: 90vh;
+  height: 90vh;
+  width: 90vw;
   margin: auto;
-  padding: 2rem;
+  padding: 1rem;
   flex-grow: 1;
   display: flex;
-  max-width: 90vh;
+  justify-content: center;
+  align-items: center;
 }

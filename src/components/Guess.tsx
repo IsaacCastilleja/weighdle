@@ -3,7 +3,13 @@ import styles from "./Game.module.css";
 export function Guess() {
     return (
         <>
-            <div className={styles.Guess}></div>
+            <form className={styles.GuessesContainer}>
+                <input type={"text"} className={styles.Guess}/>
+                <input type={"text"} className={styles.Guess}/>
+                <input type={"text"} className={styles.Guess}/>
+                <input type={"text"} className={styles.Guess}/>
+            </form>
+
         </>
     );
 }
