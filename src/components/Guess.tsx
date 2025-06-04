@@ -4,10 +4,12 @@ export function Guess() {
     return (
         <>
             <form className={styles.GuessesContainer}>
-                <input type={"text"} className={styles.Guess}/>
-                <input type={"text"} className={styles.Guess}/>
-                <input type={"text"} className={styles.Guess}/>
-                <input type={"text"} className={styles.Guess}/>
+                <input disabled={true} type={"text"} className={styles.Guess}/>
+                <input disabled={true} type={"text"} className={styles.Guess}/>
+                <input disabled={true} type={"text"} className={styles.Guess}/>
+                <input disabled={true} type={"text"} className={styles.Guess}/>
+                <input disabled={true} type={"text"} className={styles.Guess}/>
+                <input placeholder={"Enter a guess... NOW!!!!"} type={"text"} className={styles.GuessInput}/>
             </form>
 
         </>
