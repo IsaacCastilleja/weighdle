@@ -1,0 +1,8 @@
+#root {
+  max-height: 90vh;
+  margin: auto;
+  padding: 2rem;
+  flex-grow: 1;
+  display: flex;
+  max-width: 90vh;
+}
