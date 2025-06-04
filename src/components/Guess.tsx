@@ -1,14 +1,18 @@
 import styles from "./Game.module.css";
 import * as React from "react";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {AnswerContext} from "../Contexts.ts";
 
 
 
 
 export function Guess() {
+    const useGetAnswer = () => useContext(AnswerContext)
     const [guessArray, setGuessArray] = useState(["", "", "", "", ""]);
     const [guessCount, setGuessCount] = useState(0);
     const [inputValue, setInputValue] = useState("");
+    const answer = useGetAnswer();
+
     function HandleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log("EnterGuess", e);
@@ -18,6 +22,8 @@ export function Guess() {
             updatedItems[guessCount] = inputValue;
             return updatedItems;
         });
+        const inputAnswer = Number.parseFloat(inputValue);
+        console.log(inputAnswer, answer, inputAnswer === answer)
         setInputValue("");
         console.log(guessArray);
     }
