@@ -11,11 +11,11 @@ export function Guess() {
     const [guessArray, setGuessArray] = useState(["", "", "", "", ""]);
     const [guessCount, setGuessCount] = useState(0);
     const [inputValue, setInputValue] = useState("");
+    const [inputDisabled, setInputDisabled] = useState(false);
     const answer = useGetAnswer();
 
     function HandleSubmit(e: React.ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log("EnterGuess", e);
         setGuessCount(guessCount + 1);
         setGuessArray(guessArray => {
             const updatedItems = [...guessArray]
@@ -23,10 +23,16 @@ export function Guess() {
             return updatedItems;
         });
         const inputAnswer = Number.parseFloat(inputValue);
-        console.log(inputAnswer, answer, inputAnswer === answer)
+        checkAnswer(inputAnswer);
         setInputValue("");
-        console.log(guessArray);
     }
+
+    function checkAnswer(inputAnswer: number) {
+        if(inputAnswer === answer) {
+            setInputDisabled(true);
+        }
+    }
+
     return (
         <>
             <div className={styles.GuessesContainer}>
@@ -38,7 +44,12 @@ export function Guess() {
             </div>
 
             <form className={styles.GuessesContainer} onSubmit={HandleSubmit}>
-                <input placeholder={"Enter a guess... NOW!!!!"} type={"text"} className={styles.GuessInput} onChange={e => setInputValue(e.target.value)} value={inputValue}/>
+                <input placeholder={"Enter a guess... NOW!!!!"}
+                       type={"text"} className={styles.GuessInput}
+                       onChange={e => setInputValue(e.target.value)}
+                       value={inputValue}
+                       disabled={inputDisabled}
+                />
             </form>
 
         </>

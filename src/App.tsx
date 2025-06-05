@@ -1,8 +1,9 @@
 import './App.css'
 import Game from "./components/Game.tsx";
 import {useEffect, useState} from "react";
-import { getAnswer } from './services/backendService.ts'
+import { getAnswer, getQuestion } from './services/backendService.ts'
 import { AnswerContext } from "./Contexts.ts";
+import { QuestionContext } from "./Contexts.ts";
 
 function App() {
     const [answer, setAnswer] = useState(0.0);
@@ -10,10 +11,18 @@ function App() {
         getAnswer().then(res => setAnswer(res.data)).catch(err => console.log(err));
     }, [])
 
+    // image link for question
+    const [question, setQuestion] = useState("");
+    useEffect(() => {
+        getQuestion().then(res => setQuestion(res.data)).catch(err => console.log(err));
+    }, [])
+
   return (
     <>
         <AnswerContext value={answer}>
-            <Game></Game>
+            <QuestionContext value={question}>
+                <Game></Game>
+            </QuestionContext>
         </AnswerContext>
 
     </>
