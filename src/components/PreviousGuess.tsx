@@ -35,13 +35,13 @@ export function PreviousGuess(props: {guessObject: GuessObjectType}) {
                 <input disabled={true} type={"text"} className={styles.Guess} value={props.guessObject.guessText || ""}/>
                 <div className={styles.HintContainer}>
                     <img
-                        hidden={hideImage}
                         src={arrow}
                         className={styles.Hint}
                         alt="arrow"
                         style={{
                             transform: `rotate(${arrowDirection}deg)`,
                             backgroundColor: distanceHint,
+                            opacity: hideImage ? "0" : "1"
                         }}
                     />
                 </div>
