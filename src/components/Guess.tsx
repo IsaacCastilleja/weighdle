@@ -18,7 +18,7 @@ export function Guess() {
         e.preventDefault();
         setGuessCount(guessCount + 1);
         setGuessArray(guessArray => {
-            const updatedItems = [...guessArray]
+            const updatedItems = [...guessArray];
             updatedItems[guessCount] = inputValue;
             return updatedItems;
         });
@@ -28,6 +28,7 @@ export function Guess() {
     }
 
     function checkAnswer(inputAnswer: number) {
+        console.log(inputAnswer, answer);
         if(inputAnswer === answer) {
             setInputDisabled(true);
         }

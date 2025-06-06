@@ -12,7 +12,7 @@ function App() {
     }, [])
 
     // image link for question
-    const [question, setQuestion] = useState("");
+    const [question, setQuestion] = useState(undefined);
     useEffect(() => {
         getQuestion().then(res => setQuestion(res.data)).catch(err => console.log(err));
     }, [])
@@ -21,7 +21,7 @@ function App() {
     <>
         <AnswerContext value={answer}>
             <QuestionContext value={question}>
-                <Game></Game>
+                <Game questionURL={question}></Game>
             </QuestionContext>
         </AnswerContext>
 
