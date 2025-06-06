@@ -1,0 +1,38 @@
+
+.PreviousGuess {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    gap: 4px;
+    max-height: 3rem;
+}
+
+.Guess {
+    display: flex;
+    flex-grow: 1;
+    min-height: 20px;
+    min-width: 0;
+    background-color: dimgray;
+    border: 5px solid gray;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+}
+
+.HintContainer {
+    display: flex;
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+    height: auto;
+    background-color: dimgray;
+    border: 5px solid gray;
+    border-radius: 5px;
+    place-items: center;
+}
+
+.Hint {
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+}

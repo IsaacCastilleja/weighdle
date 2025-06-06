@@ -20,19 +20,6 @@
     height: auto;
 }
 
-.Guess {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-    min-height: 20px;
-    background-color: dimgray;
-    border: 5px solid gray;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    font-size: large;
-}
-
 .GuessInput {
     display: flex;
     flex-grow: 1;
