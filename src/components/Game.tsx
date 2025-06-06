@@ -5,7 +5,7 @@ export function Game(questionURL: { questionURL: string | undefined }) {
     return (
         <>
             <div className={styles.GameContainer}>
-                <img className={styles.Game} src={questionURL.questionURL}  alt={"oops"}/>
+                <img className={styles.Question} src={questionURL.questionURL} alt={"oops"}/>
                 <Guess />
             </div>
         </>

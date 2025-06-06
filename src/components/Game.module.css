@@ -5,17 +5,19 @@
     flex-direction: column;
     justify-content: flex-start;
     max-height: 100%;
-    max-width: min(90vh, 480px);
+    max-width: min(80vh, 80vw, 480px);
     gap: 1rem;
 }
 
-.Game {
+.Question {
     display: flex;
     flex-grow: 1;
     aspect-ratio: 1 / 1;
     background-color: white;
     border: 10px solid gray;
     border-radius: 5px;
+    max-width: 100%;
+    height: auto;
 }
 
 .Guess {
