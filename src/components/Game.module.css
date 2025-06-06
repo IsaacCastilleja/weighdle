@@ -35,7 +35,7 @@
     flex-grow: 1;
     justify-content: center;
     min-height: 20px;
-    max-height: 3rem;
+    height: 2rem;
     background-color: dimgray;
     border: 5px solid lightslategray;
     border-radius: 5px;
