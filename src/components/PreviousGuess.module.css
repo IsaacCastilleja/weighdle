@@ -1,17 +1,17 @@
-
 .PreviousGuess {
     display: flex;
-    flex-grow: 1;
-    flex-direction: row;
+    align-items: center;
     gap: 4px;
-    max-height: 3rem;
+    height: 2.5rem;
+    width: 100%;
 }
 
 .Guess {
-    display: flex;
-    flex-grow: 1;
-    min-height: 20px;
+    flex: 1;
     min-width: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
     background-color: dimgray;
     border: 5px solid gray;
     border-radius: 5px;
@@ -21,18 +21,19 @@
 }
 
 .HintContainer {
+    height: 100%;
+    aspect-ratio: 1;
     display: flex;
-    aspect-ratio: 1 / 1;
-    max-width: 100%;
-    height: auto;
+    align-items: center;
+    justify-content: center;
     background-color: dimgray;
     border: 5px solid gray;
     border-radius: 5px;
-    place-items: center;
 }
 
 .Hint {
-    object-fit: contain;
+    max-height: 100%;
     max-width: 100%;
-    height: auto;
+    object-fit: contain;
+    border-radius: 5px;
 }
