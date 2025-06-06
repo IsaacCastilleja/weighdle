@@ -73,7 +73,9 @@ export function Guess() {
 
             <form className={styles.GuessesContainer} onSubmit={HandleSubmit}>
                 <input placeholder={"Enter a guess... NOW!!!!"}
-                       type={"text"} className={styles.GuessInput}
+                       type={"number"}
+                       className={styles.GuessInput}
+                       inputMode={"decimal"}
                        onChange={e => setInputValue(e.target.value)}
                        value={inputValue}
                        disabled={inputDisabled}

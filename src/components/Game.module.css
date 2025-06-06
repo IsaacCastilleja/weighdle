@@ -32,6 +32,18 @@
     font-size: large;
 }
 
+/* Remove spinners in Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+    margin: 0;
+}
+
+/* Remove spinners in Firefox */
+input[type="number"] {
+    appearance: textfield;
+}
+
 .GuessesContainer {
     display: flex;
     flex-grow: 1;
