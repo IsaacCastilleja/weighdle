@@ -24,7 +24,7 @@ export function PreviousGuess(props: {guessObject: GuessObjectType}) {
         setHideImage(props.guessObject.arrowState === "correct");
 
         setDistanceHint(hintColorMap[props.guessObject.colorHint]);
-        setArrowDirection(props.guessObject.arrowState === "below" ? down_arrow : up_arrow);
+        setArrowDirection(props.guessObject.arrowState === "below" ? up_arrow : down_arrow);
         previousGuessObject = props.guessObject;
     }
 
@@ -33,14 +33,13 @@ export function PreviousGuess(props: {guessObject: GuessObjectType}) {
         <>
             <div className={styles.PreviousGuess}>
                 <input disabled={true} type={"text"} className={styles.Guess} value={props.guessObject.guessText || ""}/>
-                    <div className={styles.HintContainer}>
+                    <div className={styles.HintContainer} style={{backgroundColor: distanceHint}}>
                         <img
                             src={arrow}
                             className={styles.Hint}
                             alt="arrow"
                             style={{
                                 transform: `rotate(${arrowDirection}deg)`,
-                                backgroundColor: distanceHint,
                                 opacity: hideImage ? "0" : "1"
                             }}
                         />

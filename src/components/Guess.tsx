@@ -13,6 +13,14 @@ export type { GuessObject as GuessObjectType };
 
 const maxGuesses = 4;
 
+function isValueClose(value: number, comparator: number, wiggleRoom: number)
+{
+    const delta = Math.abs(value - comparator);
+    const wiggleValue = comparator * wiggleRoom/100.0;
+    return delta <= wiggleValue;
+}
+
+
 export function Guess() {
     const useGetAnswer = () => useContext(AnswerContext)
     const [guessCount, setGuessCount] = useState(0);
@@ -24,14 +32,28 @@ export function Guess() {
         guessText: "",
         arrowState: "correct",
         colorHint: "none"
-    }));    const [guessObjects, setGuessObjects] = useState<GuessObject[]>(defaultGuessObject);
+    }));
+
+    const [guessObjects, setGuessObjects] = useState<GuessObject[]>(defaultGuessObject);
 
     function checkGuess(inputValue: string) {
+        const parsedValue = Number.parseFloat(inputValue);
         const guess: GuessObject = {
-            guessText: inputValue,
+            guessText: `${parsedValue} lbs`,
             arrowState: "below",
             colorHint: "far",
         }
+
+        if(isValueClose(parsedValue, answer, 10)){
+            guess.colorHint = "correct";
+            guess.arrowState = "correct";
+        }
+        else
+        {
+            guess.colorHint = isValueClose(parsedValue, answer, 30) ? "close" : "far";
+            guess.arrowState = parsedValue > answer ? "above" : "below";
+        }
+
         return guess;
     }
 
@@ -44,21 +66,19 @@ export function Guess() {
             setInputDisabled(true);
         }
 
+        const guess = checkGuess(inputValue);
+
         setGuessObjects(guessObjects => {
             const updatedItems = [...guessObjects];
-            updatedItems[guessCount] = checkGuess(inputValue);
+            updatedItems[guessCount] = guess;
             return updatedItems;
         });
-        const inputAnswer = Number.parseFloat(inputValue);
-        checkAnswer(inputAnswer);
-        setInputValue("");
-    }
 
-    function checkAnswer(inputAnswer: number) {
-        console.log(inputAnswer, answer);
-        if(inputAnswer === answer) {
+        if(guess.arrowState === "correct") {
             setInputDisabled(true);
         }
+
+        setInputValue("");
     }
 
     return (
@@ -73,12 +93,14 @@ export function Guess() {
 
             <form className={styles.GuessesContainer} onSubmit={HandleSubmit}>
                 <input placeholder={"Enter a guess... NOW!!!!"}
-                       type={"number"}
+                       type={"text"}
+                       pattern={"^\\d*(\\.\\d{0,2})?$"}
                        className={styles.GuessInput}
                        inputMode={"decimal"}
                        onChange={e => setInputValue(e.target.value)}
                        value={inputValue}
                        disabled={inputDisabled}
+                       required={true}
                 />
             </form>
 
