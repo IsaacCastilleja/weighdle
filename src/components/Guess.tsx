@@ -1,5 +1,5 @@
 import styles from "./Game.module.css";
-import {useContext, useState, type ChangeEvent} from "react";
+import {useContext, useState, type ChangeEvent, type CompositionEvent} from "react";
 import {AnswerContext} from "../Contexts.ts";
 import {PreviousGuess} from "./PreviousGuess.tsx";
 
@@ -81,6 +81,15 @@ export function Guess() {
         setInputValue("");
     }
 
+    function HandleInput(e: CompositionEvent<HTMLInputElement>)
+    {
+        if(e.data !== "." && !Number.isFinite(Number(e.data)))
+        {
+            e.preventDefault();
+        }
+
+    }
+
     return (
         <>
             <div className={styles.GuessesContainer}>
@@ -90,8 +99,8 @@ export function Guess() {
                 <PreviousGuess guessObject={guessObjects[3]}/>
                 <PreviousGuess guessObject={guessObjects[4]}/>
             </div>
-
-            <form className={styles.GuessesContainer} onSubmit={HandleSubmit}>
+            {/*@ts-expect-error Stack overflow gave me that working type for HandleInput and I cant find a different one*/}
+            <form className={styles.GuessesContainer} onSubmit={HandleSubmit} onBeforeInput={HandleInput}>
                 <input placeholder={"Enter a guess... NOW!!!!"}
                        type={"text"}
                        pattern={"^\\d*(\\.\\d{0,2})?$"}
