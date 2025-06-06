@@ -18,8 +18,7 @@
 .site-container {
   display: flex;
   flex-direction: column;
-  flex-shrink: 1;
-  justify-content: center;
+  flex-grow: 1;
   align-items: center;
   gap: 1rem;
   max-height: 90%;
