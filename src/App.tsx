@@ -22,7 +22,9 @@ function App() {
         <AnswerContext value={answer}>
             <QuestionContext value={question}>
                 <div className="site-container">
-                    <h1 className={"title"}> Scaledle </h1>
+                    <div className="top-bar">
+                        <h1 className={"title"}> Scaledle </h1>
+                    </div>
                     <Game questionURL={question}></Game>
                 </div>
             </QuestionContext>
