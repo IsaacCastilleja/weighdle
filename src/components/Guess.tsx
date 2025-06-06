@@ -11,6 +11,8 @@ interface GuessObject {
 
 export type { GuessObject as GuessObjectType };
 
+const maxGuesses = 4;
+
 export function Guess() {
     const useGetAnswer = () => useContext(AnswerContext)
     const [guessCount, setGuessCount] = useState(0);
@@ -37,6 +39,11 @@ export function Guess() {
     function HandleSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
         setGuessCount(guessCount + 1);
+        if(guessCount >= maxGuesses)
+        {
+            setInputDisabled(true);
+        }
+
         setGuessObjects(guessObjects => {
             const updatedItems = [...guessObjects];
             updatedItems[guessCount] = checkGuess(inputValue);
@@ -62,7 +69,6 @@ export function Guess() {
                 <PreviousGuess guessObject={guessObjects[2]}/>
                 <PreviousGuess guessObject={guessObjects[3]}/>
                 <PreviousGuess guessObject={guessObjects[4]}/>
-
             </div>
 
             <form className={styles.GuessesContainer} onSubmit={HandleSubmit}>
