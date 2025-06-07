@@ -1,6 +1,5 @@
 import styles from "./Game.module.css";
-import {useContext, useState, type ChangeEvent, type CompositionEvent} from "react";
-import {AnswerContext} from "../Contexts.ts";
+import {useState, type ChangeEvent, type CompositionEvent} from "react";
 import {PreviousGuess} from "./PreviousGuess.tsx";
 
 interface GuessObject {
@@ -21,12 +20,11 @@ function isValueClose(value: number, comparator: number, wiggleRoom: number)
 }
 
 
-export function Guess() {
-    const useGetAnswer = () => useContext(AnswerContext)
+export function Guess(props: {answer: number}) {
     const [guessCount, setGuessCount] = useState(0);
     const [inputValue, setInputValue] = useState("");
     const [inputDisabled, setInputDisabled] = useState(false);
-    const answer = useGetAnswer();
+    const answer = props.answer;
 
     const defaultGuessObject: GuessObject[] = Array.from({ length: 5 }, () => ({
         guessText: "",

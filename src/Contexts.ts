@@ -1,4 +1,9 @@
 import {createContext} from 'react';
 
-export const AnswerContext = createContext<number>(0.0);
-export const QuestionContext = createContext<string | undefined>(undefined);
+export interface Question {
+    name: string,
+    weight: number,
+    image: string | undefined,
+}
+
+export const QuestionContext = createContext<Question | null>(null);
