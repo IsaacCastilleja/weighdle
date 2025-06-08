@@ -1,10 +1,12 @@
 import styles from "./PreviousGuess.module.css";
 import arrow from "../assets/arrow.svg";
+import checkmark from "../assets/checkmark-svgrepo-com.svg";
+import downArrow from "../assets/downArrow.svg";
+import empty from "../assets/empty.svg";
+
 import {useState} from "react";
 import { type GuessObjectType } from "./Guess.tsx";
 
-const down_arrow = "180";
-const up_arrow = "0";
 
 const hintColorMap: Record<string, string> = {
     "none": "",
@@ -13,18 +15,22 @@ const hintColorMap: Record<string, string> = {
     "correct": "green",
 }
 
+const hintArrowMap: Record<string, string> = {
+    "none": empty,
+    "below": downArrow,
+    "above": arrow,
+    "correct": checkmark
+}
+
 let previousGuessObject: GuessObjectType | null = null;
 
 export function PreviousGuess(props: {guessObject: GuessObjectType}) {
-    const [arrowDirection, setArrowDirection] = useState(up_arrow);
     const [distanceHint, setDistanceHint] = useState("");
-    const [hideImage, setHideImage] = useState(false);
+    const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
 
     if (previousGuessObject !== props.guessObject) {
-        setHideImage(props.guessObject.arrowState === "correct");
-
+        setImageSrc(hintArrowMap[props.guessObject.arrowState]);
         setDistanceHint(hintColorMap[props.guessObject.colorHint]);
-        setArrowDirection(props.guessObject.arrowState === "below" ? up_arrow : down_arrow);
         previousGuessObject = props.guessObject;
     }
 
@@ -35,13 +41,9 @@ export function PreviousGuess(props: {guessObject: GuessObjectType}) {
                 <input disabled={true} type={"text"} className={styles.Guess} value={props.guessObject.guessText || ""}/>
                     <div className={styles.HintContainer} style={{backgroundColor: distanceHint}}>
                         <img
-                            src={arrow}
+                            src={imageSrc}
                             className={styles.Hint}
-                            alt="arrow"
-                            style={{
-                                transform: `rotate(${arrowDirection}deg)`,
-                                opacity: hideImage ? "0" : "1"
-                            }}
+                            alt={`${props.guessObject.colorHint}, ${props.guessObject.arrowState}`}
                         />
                     </div>
             </div>

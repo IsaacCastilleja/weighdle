@@ -4,7 +4,7 @@ import {PreviousGuess} from "./PreviousGuess.tsx";
 
 interface GuessObject {
     guessText: string;
-    arrowState: "correct" | "below" |"above";
+    arrowState: "none" | "below" |"above" | "correct";
     colorHint: "none" | "close" | "far" | "correct";
 }
 
@@ -28,7 +28,7 @@ export function Guess(props: {answer: number}) {
 
     const defaultGuessObject: GuessObject[] = Array.from({ length: 5 }, () => ({
         guessText: "",
-        arrowState: "correct",
+        arrowState: "none",
         colorHint: "none"
     }));
 
