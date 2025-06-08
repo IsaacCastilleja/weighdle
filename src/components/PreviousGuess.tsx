@@ -39,11 +39,12 @@ export function PreviousGuess(props: {guessObject: GuessObjectType}) {
         <>
             <div className={styles.PreviousGuess}>
                 <input disabled={true} type={"text"} className={styles.Guess} value={props.guessObject.guessText || ""}/>
-                    <div className={styles.HintContainer} style={{backgroundColor: distanceHint}}>
+                    <div className={styles.HintContainer}>
                         <img
                             src={imageSrc}
                             className={styles.Hint}
                             alt={`${props.guessObject.colorHint}, ${props.guessObject.arrowState}`}
+                            style={{backgroundColor: distanceHint}}
                         />
                     </div>
             </div>
