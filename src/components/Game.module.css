@@ -8,12 +8,21 @@
     gap: 1rem;
 }
 
+.FullQuestion {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .QuestionContainerContainer{
     display: flex;
     flex-grow: 1;
-    background-color: white;
-    border: 5px solid gray;
-    border-radius: 5px;
+    background-color: gray;
+    border: var(--question-border-radius) solid gray;
+    border-top-left-radius: var(--question-border-radius);
+    border-top-right-radius: var(--question-border-radius);
+    border-bottom: none;
     justify-content: center;
 }
 
@@ -21,13 +30,27 @@
     max-width: 100%;
     height: auto;
     aspect-ratio: 1 / 1;
-
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    padding: 1rem;
 }
 
 .QuestionImage {
     object-fit: contain;
     width: 100%;
     height: 100%;
+}
+
+.QuestionName {
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    border: 5px solid gray;
+    border-bottom-left-radius: var(--question-border-radius);
+    border-bottom-right-radius: var(--question-border-radius);
+    background-color: gray;
+    margin-top: 0;
 }
 
 .GuessInput {
