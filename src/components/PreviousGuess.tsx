@@ -17,8 +17,8 @@ const hintColorMap: Record<string, string> = {
 
 const hintArrowMap: Record<string, string> = {
     "none": empty,
-    "below": downArrow,
-    "above": arrow,
+    "below": arrow,
+    "above": downArrow,
     "correct": checkmark
 }
 
