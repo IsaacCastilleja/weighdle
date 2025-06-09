@@ -97,19 +97,31 @@ export function Guess(props: {answer: number}) {
                 <PreviousGuess guessObject={guessObjects[3]}/>
                 <PreviousGuess guessObject={guessObjects[4]}/>
             </div>
-            {/*@ts-expect-error Stack overflow gave me that working type for HandleInput and I cant find a different one*/}
-            <form className={styles.GuessesContainer} onSubmit={HandleSubmit} onBeforeInput={HandleInput}>
-                <input placeholder={"Enter a guess... NOW!!!!"}
-                       type={"text"}
-                       pattern={"^\\d*(\\.\\d{0,2})?$"}
-                       className={styles.GuessInput}
-                       inputMode={"decimal"}
-                       onChange={e => setInputValue(e.target.value)}
-                       value={inputValue}
-                       disabled={inputDisabled}
-                       required={true}
-                />
-            </form>
+            <div className={styles.GuessInputContainer}>
+                {/*@ts-expect-error Stack overflow gave me that working type for HandleInput and I cant find a different one*/}
+                <form className={styles.GuessInputForm} onSubmit={HandleSubmit} onBeforeInput={HandleInput}>
+                    <input placeholder={"Enter a guess... NOW!!!!"}
+                           type={"text"}
+                           pattern={"^\\d*(\\.\\d{0,2})?$"}
+                           className={styles.GuessInput}
+                           inputMode={"decimal"}
+                           onChange={e => setInputValue(e.target.value)}
+                           value={inputValue}
+                           disabled={inputDisabled}
+                           required={true}
+                    />
+                </form>
+                <div className={styles.UnitSelectContainer}>
+                    <select className={styles.UnitSelect} name={"units"}>
+                        <option value={"lbs"}>lbs</option>
+                        <option value={"oz"}>oz</option>
+                        <option value={"kg"}>kg</option>
+                        <option value={"g"}>g</option>
+                    </select>
+                </div>
+
+            </div>
+
 
         </>
     );
