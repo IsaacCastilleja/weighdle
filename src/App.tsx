@@ -16,7 +16,6 @@ function App() {
   return (
     <>
         <div className="site-container">
-
             <div className="top-bar">
                 <h1 className={"title"}> Scaledle </h1>
             </div>
