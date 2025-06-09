@@ -59,7 +59,7 @@ export function Game(props: {question: Question}) {
                 <div className={styles.FullQuestion}>
                     <div className={styles.QuestionContainerContainer}>
                         <div className={styles.QuestionContainer}>
-                            <img className={styles.QuestionImage} src={props.question.image} alt={"oops"}/>
+                            <img className={styles.QuestionImage} src={props.question.image} alt={props.question.name}/>
                         </div>
                     </div>
                     <p className={styles.QuestionName}>{props.question.name}</p>

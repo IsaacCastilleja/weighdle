@@ -4,11 +4,11 @@ import {useEffect, useState} from "react";
 import { getQuestion } from './services/backendService.ts'
 import { type Question } from "./Contexts.ts";
 import 'animate.css';
-
+import logo from "./assets/scaledleLogo.svg";
 
 function App() {
     // image link for question
-    const [question, setQuestion] = useState<Question>({name: "ERROR", weight: 404, image: undefined});
+    const [question, setQuestion] = useState<Question>({name: "Error Fetching Question", weight: 404, image: logo});
     useEffect(() => {
         getQuestion().then(res => setQuestion(res.data)).catch(err => console.log(err));
     }, [])
