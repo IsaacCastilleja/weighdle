@@ -8,6 +8,8 @@ interface GuessObject {
     colorHint: "none" | "close" | "far" | "correct";
 }
 
+type InputUnit = "lbs" | "oz" | "kg" | "g";
+
 export type { GuessObject as GuessObjectType };
 
 const maxGuesses = 4;
@@ -19,11 +21,26 @@ function isValueClose(value: number, comparator: number, wiggleRoom: number)
     return delta <= wiggleValue;
 }
 
+function convertUnitToLbs(value: number, unit: InputUnit)
+{
+    switch (unit){
+        case "lbs":
+            return value;
+        case "oz":
+            return value / 16;
+        case "kg":
+            return value * 2.2046;
+        case "g":
+            return value * 2.2046 / 1000;
+    }
+}
+
 
 export function Guess(props: {answer: number}) {
     const [guessCount, setGuessCount] = useState(0);
     const [inputValue, setInputValue] = useState("");
     const [inputDisabled, setInputDisabled] = useState(false);
+    const [inputUnit, setInputUnit] = useState<InputUnit>("lbs");
     const answer = props.answer;
 
     const defaultGuessObject: GuessObject[] = Array.from({ length: 5 }, () => ({
@@ -36,20 +53,21 @@ export function Guess(props: {answer: number}) {
 
     function checkGuess(inputValue: string) {
         const parsedValue = Number.parseFloat(inputValue);
+        const convertedValue = convertUnitToLbs(parsedValue, inputUnit);
         const guess: GuessObject = {
-            guessText: `${parsedValue} lbs`,
+            guessText: `${parsedValue} ${inputUnit}`,
             arrowState: "below",
             colorHint: "far",
         }
 
-        if(isValueClose(parsedValue, answer, 10)){
+        if(isValueClose(convertedValue, answer, 10)){
             guess.colorHint = "correct";
             guess.arrowState = "correct";
         }
         else
         {
-            guess.colorHint = isValueClose(parsedValue, answer, 30) ? "close" : "far";
-            guess.arrowState = parsedValue > answer ? "above" : "below";
+            guess.colorHint = isValueClose(convertedValue, answer, 30) ? "close" : "far";
+            guess.arrowState = convertedValue > answer ? "above" : "below";
         }
 
         return guess;
@@ -88,6 +106,12 @@ export function Guess(props: {answer: number}) {
 
     }
 
+    function HandleInputUnitsChanged(e: ChangeEvent<HTMLSelectElement>)
+    {
+        const unit = e.currentTarget.value as InputUnit;
+        setInputUnit(unit);
+    }
+
     return (
         <>
             <div className={styles.GuessesContainer}>
@@ -102,7 +126,7 @@ export function Guess(props: {answer: number}) {
                 <form className={styles.GuessInputForm} onSubmit={HandleSubmit} onBeforeInput={HandleInput}>
                     <input placeholder={"Enter a guess... NOW!!!!"}
                            type={"text"}
-                           pattern={"^\\d*(\\.\\d{0,2})?$"}
+                           pattern={"^\\d*(\\.\\d{0,})?$"} // Only allow numbers
                            className={styles.GuessInput}
                            inputMode={"decimal"}
                            onChange={e => setInputValue(e.target.value)}
@@ -112,7 +136,7 @@ export function Guess(props: {answer: number}) {
                     />
                 </form>
                 <div className={styles.UnitSelectContainer}>
-                    <select className={styles.UnitSelect} name={"units"}>
+                    <select className={styles.UnitSelect} name={"units"} onChange={HandleInputUnitsChanged}>
                         <option value={"lbs"}>lbs</option>
                         <option value={"oz"}>oz</option>
                         <option value={"kg"}>kg</option>
