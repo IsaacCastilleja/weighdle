@@ -111,7 +111,7 @@ export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (u
             <div className={styles.GuessInputContainer}>
                 {/*@ts-expect-error Stack overflow gave me that working type for HandleInput and I cant find a different one*/}
                 <form className={styles.GuessInputForm} onSubmit={HandleSubmit} onBeforeInput={HandleInput}>
-                    <input placeholder={"Enter a guess... NOW!!!!"}
+                    <input placeholder={"Enter a guess..."}
                            type={"text"}
                            pattern={"^\\d*(\\.\\d{0,})?$"} // Only allow numbers
                            className={styles.GuessInput}
