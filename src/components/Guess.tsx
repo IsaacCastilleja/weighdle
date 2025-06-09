@@ -21,9 +21,7 @@ function isValueClose(value: number, comparator: number, wiggleRoom: number)
 }
 
 
-
-
-export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (unit: Units) => void}) {
+export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (unit: Units) => void, onGameOver: (playerWon: boolean) => void}) {
     const [guessCount, setGuessCount] = useState(0);
     const [inputValue, setInputValue] = useState("");
     const [inputDisabled, setInputDisabled] = useState(false);
@@ -63,10 +61,6 @@ export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (u
     function HandleSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
         setGuessCount(guessCount + 1);
-        if(guessCount >= maxGuesses)
-        {
-            setInputDisabled(true);
-        }
 
         const guess = checkGuess(inputValue);
 
@@ -76,11 +70,17 @@ export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (u
             return updatedItems;
         });
 
+        setInputValue("");
+
         if(guess.arrowState === "correct") {
             setInputDisabled(true);
+            props.onGameOver(true);
         }
-
-        setInputValue("");
+        else if(guessCount >= maxGuesses)
+        {
+            setInputDisabled(true);
+            props.onGameOver(false);
+        }
     }
 
     function HandleInput(e: CompositionEvent<HTMLInputElement>)
