@@ -5,6 +5,7 @@ import { getQuestion } from './services/backendService.ts'
 import { type Question } from "./Contexts.ts";
 import 'animate.css';
 
+
 function App() {
     // image link for question
     const [question, setQuestion] = useState<Question>({name: "ERROR", weight: 404, image: undefined});

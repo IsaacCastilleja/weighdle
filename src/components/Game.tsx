@@ -1,8 +1,9 @@
 import styles from  './Game.module.css'
 import Guess from './Guess';
 import { type Question } from "../Contexts.ts";
-import {useState} from "react";
-
+import {useRef, useState} from "react";
+import Realistic from "react-canvas-confetti/dist/presets/realistic";
+import type {TConductorInstance} from "react-canvas-confetti/dist/types";
 
 export type Units = "lbs" | "oz" | "kg" | "g";
 
@@ -32,14 +33,19 @@ export function Game(props: {question: Question}) {
         revealAnswer();
         if(playerWon){
             // do some victory animation
-            animateVictory()
+            animateVictory();
         }
     }
 
-    function animateVictory()
-    {
-
+    function animateVictory() {
+        controller.current?.shoot();
     }
+
+    const controller = useRef<TConductorInstance>(undefined);
+
+    const onInitHandler = (conductor: TConductorInstance) => {
+        controller.current = conductor;
+    };
 
     const answerWeight = unitConversions(props.question.weight);
     const [inputUnit, setInputUnit] = useState<Units>("lbs");
@@ -60,6 +66,7 @@ export function Game(props: {question: Question}) {
                 </div>
                 <p hidden={answerHidden} className={styles.QuestionAnswer + animation}>{answerString}</p>
                 <Guess answer={answerWeight} onUnitsChanged={UnitsChanged} onGameOver={handleGameOver}/>
+                <Realistic onInit={(e) => {onInitHandler(e.conductor)}}></Realistic>
             </div>
         </>
     );
