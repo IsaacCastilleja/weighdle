@@ -1,14 +1,13 @@
 import styles from "./Game.module.css";
 import {useState, type ChangeEvent, type CompositionEvent} from "react";
 import {PreviousGuess} from "./PreviousGuess.tsx";
+import { type Units } from "./Game.tsx";
 
 interface GuessObject {
     guessText: string;
     arrowState: "none" | "below" |"above" | "correct";
     colorHint: "none" | "close" | "far" | "correct";
 }
-
-type InputUnit = "lbs" | "oz" | "kg" | "g";
 
 export type { GuessObject as GuessObjectType };
 
@@ -21,26 +20,14 @@ function isValueClose(value: number, comparator: number, wiggleRoom: number)
     return delta <= wiggleValue;
 }
 
-function convertUnitToLbs(value: number, unit: InputUnit)
-{
-    switch (unit){
-        case "lbs":
-            return value;
-        case "oz":
-            return value / 16;
-        case "kg":
-            return value * 2.2046;
-        case "g":
-            return value * 2.2046 / 1000;
-    }
-}
 
 
-export function Guess(props: {answer: number}) {
+
+export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (unit: Units) => void}) {
     const [guessCount, setGuessCount] = useState(0);
     const [inputValue, setInputValue] = useState("");
     const [inputDisabled, setInputDisabled] = useState(false);
-    const [inputUnit, setInputUnit] = useState<InputUnit>("lbs");
+    const [inputUnit, setInputUnit] = useState<Units>("lbs");
     const answer = props.answer;
 
     const defaultGuessObject: GuessObject[] = Array.from({ length: 5 }, () => ({
@@ -53,21 +40,20 @@ export function Guess(props: {answer: number}) {
 
     function checkGuess(inputValue: string) {
         const parsedValue = Number.parseFloat(inputValue);
-        const convertedValue = convertUnitToLbs(parsedValue, inputUnit);
         const guess: GuessObject = {
             guessText: `${parsedValue} ${inputUnit}`,
             arrowState: "below",
             colorHint: "far",
         }
 
-        if(isValueClose(convertedValue, answer, 10)){
+        if(isValueClose(parsedValue, answer[inputUnit], 10)){
             guess.colorHint = "correct";
             guess.arrowState = "correct";
         }
         else
         {
-            guess.colorHint = isValueClose(convertedValue, answer, 30) ? "close" : "far";
-            guess.arrowState = convertedValue > answer ? "above" : "below";
+            guess.colorHint = isValueClose(parsedValue, answer[inputUnit], 30) ? "close" : "far";
+            guess.arrowState = parsedValue > answer[inputUnit] ? "above" : "below";
         }
 
         return guess;
@@ -108,8 +94,9 @@ export function Guess(props: {answer: number}) {
 
     function HandleInputUnitsChanged(e: ChangeEvent<HTMLSelectElement>)
     {
-        const unit = e.currentTarget.value as InputUnit;
+        const unit = e.currentTarget.value as Units;
         setInputUnit(unit);
+        props.onUnitsChanged(unit);
     }
 
     return (

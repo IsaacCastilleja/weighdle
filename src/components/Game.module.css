@@ -51,7 +51,15 @@
     border-bottom-left-radius: var(--question-border-radius);
     border-bottom-right-radius: var(--question-border-radius);
     background-color: gray;
+    margin: 0;
+}
+
+.QuestionAnswer {
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
     margin-top: 0;
+    margin-bottom: 0.5rem;
 }
 
 .GuessInput {
