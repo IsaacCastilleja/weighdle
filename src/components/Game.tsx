@@ -25,19 +25,27 @@ export function Game(props: {question: Question}) {
     function revealAnswer() {
         setAnswerString(`The answer was ${answerWeight[inputUnit].toFixed(2)} ${inputUnit} !`);
         setAnswerHidden(false);
+        setAnimation(" animate__animated animate__zoomIn");
     }
 
     function handleGameOver(playerWon: boolean) {
         revealAnswer();
         if(playerWon){
             // do some victory animation
+            animateVictory()
         }
+    }
+
+    function animateVictory()
+    {
+
     }
 
     const answerWeight = unitConversions(props.question.weight);
     const [inputUnit, setInputUnit] = useState<Units>("lbs");
     const [answerHidden, setAnswerHidden] = useState(true);
     const [answerString, setAnswerString] = useState("");
+    const [animation, setAnimation] = useState("");
 
     return (
         <>
@@ -50,7 +58,7 @@ export function Game(props: {question: Question}) {
                     </div>
                     <p className={styles.QuestionName}>{props.question.name}</p>
                 </div>
-                <p hidden={answerHidden} className={styles.QuestionAnswer}>{answerString}</p>
+                <p hidden={answerHidden} className={styles.QuestionAnswer + animation}>{answerString}</p>
                 <Guess answer={answerWeight} onUnitsChanged={UnitsChanged} onGameOver={handleGameOver}/>
             </div>
         </>
