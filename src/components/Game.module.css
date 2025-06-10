@@ -26,32 +26,24 @@
     justify-content: center;
 }
 
+.QuestionImage {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    padding: 1rem;
+}
+
 .QuestionContainer {
     display: flex;
     max-width: 100%;
-    height: min-content;
+    aspect-ratio: 1 / 1;
+    height: auto;
     border: 3px solid dimgray;
     border-radius: 10px;
     background-color: white;
-    padding: 1rem;
     justify-content: center;
-    align-items: center;
 }
 
-.QuestionImage {
-    object-fit: contain;
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-}
-
-@media (min-width: 576px) {
-    .QuestionImage {
-        width: 300px;
-        height: 300px;
-    }
-}
 
 .QuestionName {
     text-align: center;
