@@ -35,9 +35,6 @@
   background-color: #2f2f2f;
   z-index: -5;
   filter: drop-shadow(0 0 5vw #222222);
-  @media (width < 1200px) {
-    display: none;
-  }
 }
 
 .top-bar {
@@ -46,7 +43,15 @@
   width: 40%;
   justify-content: center;
   border-bottom: 5px solid white;
-  @media (width < 1200px) {
+}
+
+@media (width < 1200px) {
+  .game-background {
+    display: none;
+  }
+  .top-bar {
     width: 100%;
   }
+
 }
+
