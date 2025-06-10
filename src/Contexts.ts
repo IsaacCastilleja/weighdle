@@ -2,7 +2,7 @@ import {createContext} from 'react';
 
 export interface Question {
     name: string,
-    weight: number,
+    weight: number | undefined,
     image: string | undefined,
 }
 
