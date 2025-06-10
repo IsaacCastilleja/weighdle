@@ -21,7 +21,7 @@ function isValueClose(value: number, comparator: number, wiggleRoom: number)
 }
 
 
-export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (unit: Units) => void, onGameOver: (playerWon: boolean) => void}) {
+export function Guess(props: {answer: Record<string, number>  | undefined, onUnitsChanged: (unit: Units) => void, onGameOver: (playerWon: boolean) => void}) {
     const [guessCount, setGuessCount] = useState(0);
     const [inputValue, setInputValue] = useState("");
     const [inputDisabled, setInputDisabled] = useState(false);
@@ -37,6 +37,7 @@ export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (u
     const [guessObjects, setGuessObjects] = useState<GuessObject[]>(defaultGuessObject);
 
     function checkGuess(inputValue: string) {
+        if(!answer) return;
         const parsedValue = Number.parseFloat(inputValue);
         const guess: GuessObject = {
             guessText: `${parsedValue} ${inputUnit}`,
@@ -63,6 +64,7 @@ export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (u
         setGuessCount(guessCount + 1);
 
         const guess = checkGuess(inputValue);
+        if(!guess) return;
 
         setGuessObjects(guessObjects => {
             const updatedItems = [...guessObjects];
@@ -118,7 +120,7 @@ export function Guess(props: {answer: Record<string, number>, onUnitsChanged: (u
                            inputMode={"decimal"}
                            onChange={e => setInputValue(e.target.value)}
                            value={inputValue}
-                           disabled={inputDisabled}
+                           disabled={inputDisabled || !props.answer}
                            required={true}
                     />
                 </form>

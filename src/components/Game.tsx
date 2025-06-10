@@ -8,7 +8,8 @@ import type {TConductorInstance} from "react-canvas-confetti/dist/types";
 export type Units = "lbs" | "oz" | "kg" | "g";
 
 // Converts the received lbs value to the other units
-function unitConversions(value: number) {
+function unitConversions(value: number | undefined) {
+    if(!value) return undefined;
     const answer: Record<Units, number> = {
         "lbs": value,
         "oz": value * 16,
@@ -24,6 +25,7 @@ export function Game(props: {question: Question}) {
     }
 
     function revealAnswer() {
+        if(!answerWeight) return;
         setAnswerString(`The answer was ${answerWeight[inputUnit].toFixed(2)} ${inputUnit} !`);
         setAnswerHidden(false);
         setAnimation(" animate__animated animate__zoomIn");
