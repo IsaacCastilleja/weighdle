@@ -2,6 +2,7 @@ import styles from "./Game.module.css";
 import {useState, type ChangeEvent, type CompositionEvent} from "react";
 import {PreviousGuess} from "./PreviousGuess.tsx";
 import { type Units } from "./Game.tsx";
+import enterIconLight from "../assets/enterIconLight.svg";
 
 interface GuessObject {
     guessText: string;
@@ -110,29 +111,35 @@ export function Guess(props: {answer: Record<string, number>  | undefined, onUni
                 <PreviousGuess guessObject={guessObjects[3]}/>
                 <PreviousGuess guessObject={guessObjects[4]}/>
             </div>
-            <div className={styles.GuessInputContainer}>
-                {/*@ts-expect-error Stack overflow gave me that working type for HandleInput and I cant find a different one*/}
-                <form className={styles.GuessInputForm} onSubmit={HandleSubmit} onBeforeInput={HandleInput}>
-                    <input placeholder={"Enter a guess..."}
-                           type={"text"}
-                           pattern={"^\\d*(\\.\\d{0,})?$"} // Only allow numbers
-                           className={styles.GuessInput}
-                           inputMode={"decimal"}
-                           onChange={e => setInputValue(e.target.value)}
-                           value={inputValue}
-                           disabled={inputDisabled || !props.answer}
-                           required={true}
-                    />
-                </form>
-                <div className={styles.UnitSelectContainer}>
-                    <select className={styles.UnitSelect} name={"units"} onChange={HandleInputUnitsChanged}>
-                        <option value={"lbs"}>lbs</option>
-                        <option value={"oz"}>oz</option>
-                        <option value={"kg"}>kg</option>
-                        <option value={"g"}>g</option>
-                    </select>
+            <div className={styles.GuessContainer}>
+                <div className={styles.GuessInputContainer}>
+                    {/*@ts-expect-error Stack overflow gave me that working type for HandleInput and I cant find a different one*/}
+                    <form id={"enterGuessForm"} className={styles.GuessInputForm} onSubmit={HandleSubmit} onBeforeInput={HandleInput}>
+                        <input placeholder={"Enter a guess..."}
+                               type={"text"}
+                               pattern={"^\\d*(\\.\\d{0,})?$"} // Only allow numbers
+                               className={styles.GuessInput}
+                               inputMode={"decimal"}
+                               onChange={e => setInputValue(e.target.value)}
+                               value={inputValue}
+                               disabled={inputDisabled || !props.answer}
+                               required={true}
+                        />
+                    </form>
+                    <div className={styles.UnitSelectContainer}>
+                        <select className={styles.UnitSelect} name={"units"} onChange={HandleInputUnitsChanged}>
+                            <option value={"lbs"}>lbs</option>
+                            <option value={"oz"}>oz</option>
+                            <option value={"kg"}>kg</option>
+                            <option value={"g"}>g</option>
+                        </select>
+                    </div>
                 </div>
-
+                <div className={styles.GuessInputSubmitContainer}>
+                    <button className={styles.GuessInputSubmit} type={"submit"} form={"enterGuessForm"} value={"Submit"}>
+                        <img style={{height: "100%", width: "100%"}} src={enterIconLight} alt={"Submit"}/>
+                    </button>
+                </div>
             </div>
 
 
