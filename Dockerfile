@@ -1,4 +1,4 @@
-FROM node:18-alpine AS build
+FROM --platform=linux/arm64 nginx:stable-alpine AS build
 WORKDIR /app
 
 COPY package*.json ./
