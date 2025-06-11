@@ -19,7 +19,7 @@ function App() {
     <>
         <div className="site-container">
             <div className="top-bar">
-                <h1 className={"title"}> Weighle </h1>
+                <h1 className={"title"}> Weighdle </h1>
             </div>
             <Game question={question}></Game>
         </div>
