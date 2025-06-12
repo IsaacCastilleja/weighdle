@@ -4,6 +4,7 @@ import {
     type ChangeEvent,
     type CompositionEvent,
     useContext, useReducer, useEffect,
+    useCallback,
 } from "react";
 import {PreviousGuess} from "./PreviousGuess.tsx";
 import enterIconLight from "../assets/enterIconLight.svg";
@@ -40,7 +41,6 @@ export function Guess(props: {
 
     const puzzleNumber = props.puzzleNumber;
     const [inputValue, setInputValue] = useState("");
-    const [inputDisabled, setInputDisabled] = useState(false);
     const [inputUnit, setInputUnit] = useState<Units>("lbs");
     const storedState = useContext(StoredGameStateContext);
     const answer = props.answer;
@@ -50,6 +50,10 @@ export function Guess(props: {
         arrowState: "none",
         colorHint: "none"
     }));
+
+    const gameOver = useCallback((playerWon: boolean) => {
+        props.onGameOver(playerWon);
+    }, [props]);
 
     function reducer(state: GameState, action: GameStateDispatch) {
         let prevState = state;
@@ -67,7 +71,6 @@ export function Guess(props: {
                 prevState = action.payload;
         }
         localStorage.setItem(puzzleNumber, JSON.stringify(prevState));
-        // console.log(`Updating ${puzzleNumber} with state: ${JSON.stringify(prevState)}`)
         return prevState
     }
 
@@ -79,6 +82,12 @@ export function Guess(props: {
         }
 
     }, [storedState]);
+
+    useEffect(() => {
+        if(gameState.playerWon !== "DNF") {
+            gameOver(gameState.playerWon === "WON");
+        }
+    }, [gameState.playerWon, gameOver]);
 
     function updateGuessCount(newValue: number) {
         dispatch({type: ACTIONS.UPDATE_GUESS_COUNT, payload: {
@@ -125,11 +134,6 @@ export function Guess(props: {
         }
 
         return guess;
-    }
-
-    function gameOver(playerWon: boolean) {
-        props.onGameOver(playerWon);
-        setInputDisabled(true);
     }
 
 
@@ -191,7 +195,7 @@ export function Guess(props: {
                                inputMode={"decimal"}
                                onChange={e => setInputValue(e.target.value)}
                                value={inputValue}
-                               disabled={inputDisabled || !props.answer}
+                               disabled={gameState.playerWon !== "DNF" || !props.answer}
                                required={true}
                         />
                     </form>
@@ -205,7 +209,7 @@ export function Guess(props: {
                     </div>
                 </div>
                 <div className={styles.GuessInputSubmitContainer}>
-                    <button className={styles.GuessInputSubmit} type={"submit"} form={"enterGuessForm"} value={"Submit"} disabled={inputDisabled || !props.answer}>
+                    <button className={styles.GuessInputSubmit} type={"submit"} form={"enterGuessForm"} value={"Submit"} disabled={gameState.playerWon !== "DNF" || !props.answer}>
                         <img style={{height: "100%", width: "100%"}} src={enterIconLight} alt={"Submit"}/>
                     </button>
                 </div>
