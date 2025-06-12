@@ -1,11 +1,11 @@
 import styles from  './Game.module.css'
 import Guess from './Guess';
-import { type Question } from "../Contexts.ts";
+import {type Question, type Units} from "../Contexts.ts";
 import {useRef, useState} from "react";
 import Realistic from "react-canvas-confetti/dist/presets/realistic";
 import type {TConductorInstance} from "react-canvas-confetti/dist/types";
 
-export type Units = "lbs" | "oz" | "kg" | "g";
+
 
 // Converts the received lbs value to the other units
 function unitConversions(value: number | undefined) {
@@ -19,7 +19,7 @@ function unitConversions(value: number | undefined) {
     return answer;
 }
 
-export function Game(props: {question: Question}) {
+export function Game(props: {question: Question, puzzleNumber: number}) {
     function UnitsChanged(unit: Units) {
         setInputUnit(unit)
     }
@@ -67,7 +67,7 @@ export function Game(props: {question: Question}) {
                     <p className={styles.QuestionName}>{props.question.name}</p>
                 </div>
                 <p hidden={answerHidden} className={styles.QuestionAnswer + animation}>{answerString}</p>
-                <Guess answer={answerWeight} onUnitsChanged={UnitsChanged} onGameOver={handleGameOver}/>
+                <Guess answer={answerWeight} puzzleNumber={props.puzzleNumber.toString()} onUnitsChanged={UnitsChanged} onGameOver={handleGameOver}/>
                 <Realistic onInit={(e) => {onInitHandler(e.conductor)}}></Realistic>
             </div>
         </>
