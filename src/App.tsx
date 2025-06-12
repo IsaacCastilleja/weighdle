@@ -7,11 +7,9 @@ import 'animate.css';
 import skeletonLogo from "./assets/scaledleLogoSkeleton.svg";
 
 function App() {
-    // image link for question
     const [question, setQuestion] = useState<Question>({name: "", weight: undefined, image: skeletonLogo});
     const [puzzleNumber, setPuzzleNumber] = useState(1);
     const [storedGameState, setStoredGameState] = useState<GameState | undefined>(undefined);
-
 
     useEffect(() => {
         getQuestion()
@@ -27,7 +25,6 @@ function App() {
     function retrieveStoredGameState(puzzleNumberString: string){
         const stored = localStorage.getItem(puzzleNumberString);
         if(!stored) {
-            console.log("no data")
             return undefined;
         }
         const parsed: GameState = JSON.parse(stored);

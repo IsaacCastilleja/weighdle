@@ -34,7 +34,6 @@ export function Game(props: {question: Question, puzzleNumber: number}) {
     function handleGameOver(playerWon: boolean) {
         revealAnswer();
         if(playerWon){
-            // do some victory animation
             animateVictory();
         }
     }
