@@ -1,7 +1,7 @@
 
 .GameContainer {
     display: flex;
-    flex-grow: 1;
+    flex-shrink: 1;
     flex-direction: column;
     max-width: min(80vh, 80vw, 420px);
     gap: 1.5rem;
@@ -13,10 +13,12 @@
     flex-direction: column;
     justify-content: center;
     filter: drop-shadow(0px 0px 10px black);
+    min-height: 0;
 }
 
 .QuestionContainerContainer{
     display: flex;
+    min-height: 0;
     flex-shrink: 1;
     background-color: gray;
     border: var(--question-border-radius) solid gray;
@@ -42,6 +44,12 @@
     border-radius: 10px;
     background-color: white;
     justify-content: center;
+}
+
+@media (height < 800px) or (width < 1200px) {
+    .FullQuestion {
+        max-height: 50%;
+    }
 }
 
 
