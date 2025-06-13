@@ -12,10 +12,10 @@
     height: 100%;
     display: flex;
     align-items: center;
-    background-color: dimgray;
-    border: 5px solid gray;
+    background-color: var(--container-background-color);
+    border: 5px solid var(--container-border-color);
     border-radius: 5px;
-    color: white;
+    color: var(--font-color);
     font-weight: bold;
     font-size: large;
     padding: 0 5px;
@@ -27,8 +27,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: dimgray;
-    border: 5px solid gray;
+    background-color: var(--container-background-color);
+    border: 5px solid var(--container-border-color);
     border-radius: 5px;
 }
 

@@ -12,7 +12,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --question-border-radius: 15px
+  --question-border-radius: 15px;
+  --container-background-color: dimgray;
+  --container-border-color: gray;
+  --input-border-color: slategray;
+  --font-color: white;
+  --drop-shadow-color: black;
+  --image-background-color: white;
+  --game-background-color: #2f2f2f;
 }
 
 body {
@@ -23,7 +30,8 @@ body {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
+    color: black;
+    --font-color: black;
     background-color: #ffffff;
   }
   a:hover {
