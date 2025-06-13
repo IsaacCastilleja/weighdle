@@ -20,8 +20,8 @@
     display: flex;
     min-height: 0;
     flex-shrink: 1;
-    background-color: var(--container-border-color);
-    border: var(--question-border-radius) solid var(--container-border-color);
+    background-color: var(--card-color);
+    border: var(--question-border-radius) solid var(--card-color);
     border-top-left-radius: var(--question-border-radius);
     border-top-right-radius: var(--question-border-radius);
     border-bottom: none;
@@ -44,7 +44,7 @@
     aspect-ratio: 1 / 1;
     height: auto;
     max-height: 100%;
-    border: 3px solid var(--container-border-color);
+    border: 3px solid var(--card-color);
     border-radius: 10px;
     background-color: var(--image-background-color);
     justify-content: center;
@@ -61,10 +61,10 @@
     text-align: center;
     font-weight: bold;
     font-size: x-large;
-    border: 5px solid var(--container-border-color);
+    border: 5px solid var(--card-color);
     border-bottom-left-radius: var(--question-border-radius);
     border-bottom-right-radius: var(--question-border-radius);
-    background-color: var(--container-border-color);
+    background-color: var(--card-color);
     margin: 0;
 }
 
