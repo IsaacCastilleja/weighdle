@@ -26,7 +26,7 @@ export function Game(props: {question: Question, puzzleNumber: number}) {
 
     function revealAnswer() {
         if(!answerWeight) return;
-        setAnswerString(`The answer was ${answerWeight[inputUnit].toFixed(2)} ${inputUnit} !`);
+        setAnswerString(`The answer was ${answerWeight[inputUnit].toFixed(2)} ${inputUnit}!`);
         setAnswerHidden(false);
         setAnimation(" animate__animated animate__zoomIn");
     }
