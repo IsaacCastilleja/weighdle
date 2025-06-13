@@ -5,6 +5,7 @@ import { getQuestion } from './services/backendService.ts'
 import {type GameState, type Question, StoredGameStateContext} from "./Contexts.ts";
 import 'animate.css';
 import skeletonLogo from "./assets/scaledleLogoSkeleton.svg";
+import {HowToPlayModal} from "./components/HowToPlayModal.tsx";
 
 function App() {
     const [question, setQuestion] = useState<Question>({name: "", weight: undefined, image: skeletonLogo});
@@ -37,6 +38,7 @@ function App() {
             <div className="site-container">
                 <div className="top-bar">
                     <h1 className={"title"}> Weighdle </h1>
+                    <HowToPlayModal />
                 </div>
                 <Game question={question} puzzleNumber={puzzleNumber}></Game>
             </div>
