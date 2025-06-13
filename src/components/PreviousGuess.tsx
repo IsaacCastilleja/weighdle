@@ -16,7 +16,7 @@ const hintColorMap: Record<string, string> = {
 }
 
 const hintBorderColorMap: Record<string, string> = {
-    "none": "dimgray",
+    "none": "transparent",
     "close": "goldenrod",
     "far": "darkred",
     "correct": "darkgreen",

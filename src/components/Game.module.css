@@ -12,7 +12,7 @@
     flex-shrink: 1;
     flex-direction: column;
     justify-content: center;
-    filter: drop-shadow(0px 0px 10px black);
+    filter: drop-shadow(0px 0px 10px var(--drop-shadow-color));
     min-height: 0;
 }
 
@@ -86,7 +86,7 @@
     font-size: large;
     height: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0 5px;
     border: 0;
     background-color: var(--container-background-color);
 }
@@ -141,7 +141,7 @@
 .UnitSelect {
     font-size: large;
     font-weight: bold;
-    background: dimgray;
+    background: var(--container-background-color);
     border: none;
     width: max-content;
     height: 100%;

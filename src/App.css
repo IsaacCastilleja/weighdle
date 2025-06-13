@@ -42,7 +42,7 @@ html, body {
   position: absolute;
   background-color: var(--game-background-color);
   z-index: -5;
-  filter: drop-shadow(0 0 5vw #222222);
+  filter: drop-shadow(0 0 5vw var(--game-background-shadow));
 }
 
 .top-bar {

@@ -20,6 +20,7 @@
   --drop-shadow-color: black;
   --image-background-color: white;
   --game-background-color: #2f2f2f;
+  --game-background-shadow: #222222;
 }
 
 body {
@@ -31,8 +32,15 @@ body {
 @media (prefers-color-scheme: light) {
   :root {
     color: black;
+    background-color: #f8f9fa;
     --font-color: black;
-    background-color: #ffffff;
+    --game-background-color: #ededed;
+    --drop-shadow-color: darkgray;
+    --game-background-shadow: #d6d6d6;
+    --container-background-color: ghostwhite;
+    --container-border-color: gainsboro;
+    --input-border-color: lightsteelblue;
+
   }
   a:hover {
     color: #747bff;
