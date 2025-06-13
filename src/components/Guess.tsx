@@ -7,7 +7,7 @@ import {
     useCallback,
 } from "react";
 import {PreviousGuess} from "./PreviousGuess.tsx";
-import enterIconLight from "../assets/enterIconLight.svg";
+import enterIconLight from "../assets/enterIconLightOutline.svg";
 import {type GameState, type Units, type WIN_STATE, type GuessObject, StoredGameStateContext} from "../Contexts.ts";
 
 
@@ -178,11 +178,11 @@ export function Guess(props: {
     return (
         <>
             <div className={styles.GuessesContainer}>
-                <PreviousGuess guessObject={gameState.previousGuesses[0]}/>
-                <PreviousGuess guessObject={gameState.previousGuesses[1]}/>
-                <PreviousGuess guessObject={gameState.previousGuesses[2]}/>
-                <PreviousGuess guessObject={gameState.previousGuesses[3]}/>
-                <PreviousGuess guessObject={gameState.previousGuesses[4]}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[0]} guessNumber={1}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[1]} guessNumber={2}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[2]} guessNumber={3}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[3]} guessNumber={4}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[4]} guessNumber={5}/>
             </div>
             <div className={styles.GuessContainer}>
                 <div className={styles.GuessInputContainer}>
@@ -209,7 +209,12 @@ export function Guess(props: {
                     </div>
                 </div>
                 <div className={styles.GuessInputSubmitContainer}>
-                    <button className={styles.GuessInputSubmit} type={"submit"} form={"enterGuessForm"} value={"Submit"} disabled={gameState.playerWon !== "DNF" || !props.answer}>
+                    <button className={styles.GuessInputSubmit}
+                            type={"submit"}
+                            form={"enterGuessForm"}
+                            value={"Submit"}
+                            disabled={gameState.playerWon !== "DNF" || !props.answer}
+                    >
                         <img style={{height: "100%", width: "100%"}} src={enterIconLight} alt={"Submit"}/>
                     </button>
                 </div>

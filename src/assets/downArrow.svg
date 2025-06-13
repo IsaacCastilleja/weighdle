@@ -15,7 +15,21 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs1" />
+     id="defs1">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Invert"
+       id="filter1"
+       x="-0.083333333"
+       y="-0.0625"
+       width="1.1666667"
+       height="1.125">
+      <feColorMatrix
+         values="-1 0 0 0 1 0 -1 0 0 1 0 0 -1 0 1 -0.21 -0.72 -0.07 1 0 "
+         result="color2"
+         id="feColorMatrix1" />
+    </filter>
+  </defs>
   <sodipodi:namedview
      id="namedview1"
      pagecolor="#ffffff"
@@ -40,5 +54,6 @@
      stroke-width="2"
      stroke-linecap="round"
      stroke-linejoin="round"
-     id="path1" />
+     id="path1"
+     style="filter:url(#filter1)" />
 </svg>
