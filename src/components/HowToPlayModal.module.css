@@ -15,32 +15,33 @@
     flex-direction: column;
     z-index: 5;
     width: min(85vw, 640px);
-    height: min(60vh, 640px);
-    background: var(--container-background-color);
+    height: min(75vh, 640px);
+    background: var(--game-background-color);
     border: 5px solid var(--container-border-color);
     border-radius: var(--question-border-radius);
     padding: 0 1% 0 1%;
+    overflow: auto;
 }
 
 .modal h1 {
     text-align: center;
     border-bottom: 5px solid var(--font-color);
     max-width: 100%;
-    padding-bottom: 10px;
+    padding-bottom: 0.5rem;
     margin-left: 5%;
     margin-right: 5%;
 }
 
 .modal h2 {
-    margin: 0;
+    margin: 0 0 0.5rem;
 }
 
 .modal h3 {
-    margin: 1px;
+    margin: 0 0 0.25rem;
 }
 
 .modal h4 {
-    margin: 0;
+    margin: 0 0 0.25rem;
 }
 
 .modal p {
@@ -80,4 +81,13 @@
     height: min-content;
     margin-top: 5px;
     border-top: 3px solid var(--font-color)
+}
+
+.guessExampleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 1;
+    min-width: 0;
+    margin-bottom: 1.0rem;
 }
