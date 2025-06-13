@@ -1,13 +1,21 @@
 
+.modalContainer {
+    display: flex;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+    justify-content: center;
+    align-items: start;
+}
+
 .modal {
+    margin-top: 4rem;
     display: flex;
     flex-direction: column;
-    position: absolute;
     z-index: 5;
-    top: 10vh;
-    margin: auto;
-    width: min(90vw, 640px);
-    height: min(90vh, 640px);
+    width: min(85vw, 640px);
+    height: min(60vh, 640px);
     background: var(--container-background-color);
     border: 5px solid var(--container-border-color);
     border-radius: var(--question-border-radius);
@@ -31,13 +39,18 @@
     margin: 1px;
 }
 
+.modal h4 {
+    margin: 0;
+}
+
 .modal p {
     margin-top: 0;
 }
 
 .backdrop {
-    position: absolute;
+    position: fixed;
     z-index: 4;
+    -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
     width: 100vw;
     height: 100vh;
@@ -59,4 +72,12 @@
 .bulletText {
     display: inline-block;
     width: 100%;
+}
+
+.verticalLineSeparator {
+    display: flex;
+    min-width: 100%;
+    height: min-content;
+    margin-top: 5px;
+    border-top: 3px solid var(--font-color)
 }
