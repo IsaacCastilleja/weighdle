@@ -1,16 +1,15 @@
 import styles from "./Game.module.css";
-import {useState, type ChangeEvent, type CompositionEvent} from "react";
+import {
+    useState,
+    type ChangeEvent,
+    type CompositionEvent,
+    useContext, useReducer, useEffect,
+    useCallback,
+} from "react";
 import {PreviousGuess} from "./PreviousGuess.tsx";
-import { type Units } from "./Game.tsx";
 import enterIconLight from "../assets/enterIconLight.svg";
+import {type GameState, type Units, type WIN_STATE, type GuessObject, StoredGameStateContext} from "../Contexts.ts";
 
-interface GuessObject {
-    guessText: string;
-    arrowState: "none" | "below" |"above" | "correct";
-    colorHint: "none" | "close" | "far" | "correct";
-}
-
-export type { GuessObject as GuessObjectType };
 
 const maxGuesses = 4;
 
@@ -21,12 +20,29 @@ function isValueClose(value: number, comparator: number, wiggleRoom: number)
     return delta <= wiggleValue;
 }
 
+const ACTIONS = {
+    UPDATE_GUESS_COUNT: 0,
+    UPDATE_GUESSES: 1,
+    UPDATE_WIN_STATE: 2,
+    UPDATE_GAME_STATE: 4,
+}
 
-export function Guess(props: {answer: Record<string, number>  | undefined, onUnitsChanged: (unit: Units) => void, onGameOver: (playerWon: boolean) => void}) {
-    const [guessCount, setGuessCount] = useState(0);
+interface GameStateDispatch {
+    type: number,
+    payload: GameState
+}
+
+export function Guess(props: {
+    answer: Record<string, number>  | undefined,
+    puzzleNumber: string,
+    onUnitsChanged: (unit: Units) => void,
+    onGameOver: (playerWon: boolean) => void
+}) {
+
+    const puzzleNumber = props.puzzleNumber;
     const [inputValue, setInputValue] = useState("");
-    const [inputDisabled, setInputDisabled] = useState(false);
     const [inputUnit, setInputUnit] = useState<Units>("lbs");
+    const storedState = useContext(StoredGameStateContext);
     const answer = props.answer;
 
     const defaultGuessObject: GuessObject[] = Array.from({ length: 5 }, () => ({
@@ -35,7 +51,68 @@ export function Guess(props: {answer: Record<string, number>  | undefined, onUni
         colorHint: "none"
     }));
 
-    const [guessObjects, setGuessObjects] = useState<GuessObject[]>(defaultGuessObject);
+    const gameOver = useCallback((playerWon: boolean) => {
+        props.onGameOver(playerWon);
+    }, [props]);
+
+    function reducer(state: GameState, action: GameStateDispatch) {
+        let prevState = state;
+        switch (action.type) {
+            case ACTIONS.UPDATE_GUESS_COUNT:
+                prevState.previousGuessCount = action.payload.previousGuessCount;
+                break;
+            case ACTIONS.UPDATE_GUESSES:
+                prevState.previousGuesses = action.payload.previousGuesses;
+                break;
+            case ACTIONS.UPDATE_WIN_STATE:
+                prevState.playerWon = action.payload.playerWon;
+                break;
+            case ACTIONS.UPDATE_GAME_STATE:
+                prevState = action.payload;
+        }
+        localStorage.setItem(puzzleNumber, JSON.stringify(prevState));
+        return prevState
+    }
+
+    const [gameState, dispatch] = useReducer(reducer, storedState ?? {previousGuessCount: 0, previousGuesses: defaultGuessObject, playerWon: "DNF"});
+
+    useEffect(() => {
+        if(storedState){
+            dispatch({type: ACTIONS.UPDATE_GAME_STATE, payload: storedState})
+        }
+
+    }, [storedState]);
+
+    useEffect(() => {
+        if(gameState.playerWon !== "DNF") {
+            gameOver(gameState.playerWon === "WON");
+        }
+    }, [gameState.playerWon, gameOver]);
+
+    function updateGuessCount(newValue: number) {
+        dispatch({type: ACTIONS.UPDATE_GUESS_COUNT, payload: {
+                previousGuessCount: newValue,
+                previousGuesses: [],
+                playerWon: "WON"
+            }});
+    }
+
+    function updateGuesses(newValue: GuessObject[]) {
+        dispatch({type: ACTIONS.UPDATE_GUESSES, payload: {
+                previousGuesses: newValue,
+                previousGuessCount: 0,
+                playerWon: "WON"
+            }});
+    }
+
+    function updateWinState(newValue: WIN_STATE) {
+        dispatch({type: ACTIONS.UPDATE_WIN_STATE, payload: {
+                playerWon: newValue,
+                previousGuesses: [],
+                previousGuessCount: 0
+            }});
+    }
+
 
     function checkGuess(inputValue: string) {
         if(!answer) return;
@@ -62,28 +139,24 @@ export function Guess(props: {answer: Record<string, number>  | undefined, onUni
 
     function HandleSubmit(e: ChangeEvent<HTMLFormElement>) {
         e.preventDefault();
-        setGuessCount(guessCount + 1);
 
         const guess = checkGuess(inputValue);
         if(!guess) return;
 
-        setGuessObjects(guessObjects => {
-            const updatedItems = [...guessObjects];
-            updatedItems[guessCount] = guess;
-            return updatedItems;
-        });
-
-        setInputValue("");
-
         if(guess.arrowState === "correct") {
-            setInputDisabled(true);
-            props.onGameOver(true);
+            updateWinState("WON");
+            gameOver(true);
         }
-        else if(guessCount >= maxGuesses)
+        else if(gameState.previousGuessCount  >= maxGuesses)
         {
-            setInputDisabled(true);
-            props.onGameOver(false);
+            updateWinState("LOST");
+            gameOver(false);
         }
+        const updatedGuesses = gameState.previousGuesses;
+        updatedGuesses[gameState.previousGuessCount] = guess;
+        updateGuesses(updatedGuesses);
+        updateGuessCount(gameState.previousGuessCount + 1);
+        setInputValue("");
     }
 
     function HandleInput(e: CompositionEvent<HTMLInputElement>)
@@ -101,15 +174,15 @@ export function Guess(props: {answer: Record<string, number>  | undefined, onUni
         setInputUnit(unit);
         props.onUnitsChanged(unit);
     }
-
+    
     return (
         <>
             <div className={styles.GuessesContainer}>
-                <PreviousGuess guessObject={guessObjects[0]}/>
-                <PreviousGuess guessObject={guessObjects[1]}/>
-                <PreviousGuess guessObject={guessObjects[2]}/>
-                <PreviousGuess guessObject={guessObjects[3]}/>
-                <PreviousGuess guessObject={guessObjects[4]}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[0]}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[1]}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[2]}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[3]}/>
+                <PreviousGuess guessObject={gameState.previousGuesses[4]}/>
             </div>
             <div className={styles.GuessContainer}>
                 <div className={styles.GuessInputContainer}>
@@ -122,7 +195,7 @@ export function Guess(props: {answer: Record<string, number>  | undefined, onUni
                                inputMode={"decimal"}
                                onChange={e => setInputValue(e.target.value)}
                                value={inputValue}
-                               disabled={inputDisabled || !props.answer}
+                               disabled={gameState.playerWon !== "DNF" || !props.answer}
                                required={true}
                         />
                     </form>
@@ -136,13 +209,11 @@ export function Guess(props: {answer: Record<string, number>  | undefined, onUni
                     </div>
                 </div>
                 <div className={styles.GuessInputSubmitContainer}>
-                    <button className={styles.GuessInputSubmit} type={"submit"} form={"enterGuessForm"} value={"Submit"}>
+                    <button className={styles.GuessInputSubmit} type={"submit"} form={"enterGuessForm"} value={"Submit"} disabled={gameState.playerWon !== "DNF" || !props.answer}>
                         <img style={{height: "100%", width: "100%"}} src={enterIconLight} alt={"Submit"}/>
                     </button>
                 </div>
             </div>
-
-
         </>
     );
 }
