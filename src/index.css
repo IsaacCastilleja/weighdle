@@ -5,14 +5,24 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: var(--site-background-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --question-border-radius: 15px
+  --question-border-radius: 15px;
+  --container-background-color: dimgray;
+  --container-border-color: gray;
+  --input-border-color: slategray;
+  --font-color: white;
+  --drop-shadow-color: black;
+  --image-background-color: white;
+  --game-background-color: #2f2f2f;
+  --game-background-shadow: #222222;
+  --site-background-color: #242424;
+  --card-color: gray;
 }
 
 body {
@@ -23,8 +33,18 @@ body {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: black;
+    --site-background-color: #f8f8f8;
+    --card-color: #f8f8f8;
+    --font-color: black;
+    --game-background-color: #f8f9fa;
+    --drop-shadow-color: darkgray;
+    --game-background-shadow: #dfdfdf;
+    --container-background-color: ghostwhite;
+    --container-border-color: gainsboro;
+    --input-border-color: lightsteelblue;
+    --image-background-color: gainsboro;
+
   }
   a:hover {
     color: #747bff;

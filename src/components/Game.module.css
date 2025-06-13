@@ -12,7 +12,7 @@
     flex-shrink: 1;
     flex-direction: column;
     justify-content: center;
-    filter: drop-shadow(0px 0px 10px black);
+    filter: drop-shadow(0px 0px 10px var(--drop-shadow-color));
     min-height: 0;
 }
 
@@ -20,8 +20,8 @@
     display: flex;
     min-height: 0;
     flex-shrink: 1;
-    background-color: gray;
-    border: var(--question-border-radius) solid gray;
+    background-color: var(--card-color);
+    border: var(--question-border-radius) solid var(--card-color);
     border-top-left-radius: var(--question-border-radius);
     border-top-right-radius: var(--question-border-radius);
     border-bottom: none;
@@ -44,9 +44,9 @@
     aspect-ratio: 1 / 1;
     height: auto;
     max-height: 100%;
-    border: 3px solid dimgray;
+    border: 3px solid var(--card-color);
     border-radius: 10px;
-    background-color: white;
+    background-color: var(--image-background-color);
     justify-content: center;
 }
 
@@ -61,10 +61,10 @@
     text-align: center;
     font-weight: bold;
     font-size: x-large;
-    border: 5px solid gray;
+    border: 5px solid var(--card-color);
     border-bottom-left-radius: var(--question-border-radius);
     border-bottom-right-radius: var(--question-border-radius);
-    background-color: gray;
+    background-color: var(--card-color);
     margin: 0;
 }
 
@@ -81,14 +81,14 @@
     flex: 1;
     min-width: 0;
     align-items: center;
-    color: white;
+    color: var(--font-color);
     font-weight: bold;
     font-size: large;
     height: 100%;
     margin: 0;
-    padding: 0;
+    padding: 0 5px;
     border: 0;
-    background-color: dimgray;
+    background-color: var(--container-background-color);
 }
 
 .GuessContainer {
@@ -115,7 +115,7 @@
     align-items: center;
     height: 100%;
     width: 70%;
-    border: 5px solid slategray;
+    border: 5px solid var(--input-border-color);
     border-right: none;
     border-radius: 5px 0 0 5px;
 }
@@ -130,8 +130,8 @@
     flex-grow: 1;
     align-items: center;
     justify-content: center;
-    background-color: dimgray;
-    border: 5px solid slategray;
+    background-color: var(--container-background-color);
+    border: 5px solid var(--input-border-color);
     height: 100%;
     min-width: min-content;
     border-radius: 0 5px 5px 0;
@@ -141,7 +141,7 @@
 .UnitSelect {
     font-size: large;
     font-weight: bold;
-    background: dimgray;
+    background: var(--container-background-color);
     border: none;
     width: max-content;
     height: 100%;
@@ -157,7 +157,7 @@
     align-items: center;
     justify-content: center;
     background-color: seagreen;
-    border: 5px solid slategray;
+    border: 5px solid var(--input-border-color);
     border-radius: 5px;
     min-width: 20%;
     height: 100%;
