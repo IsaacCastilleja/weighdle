@@ -5,7 +5,7 @@ import downArrow from "../assets/downArrow.svg";
 import empty from "../assets/empty.svg";
 
 import {useState} from "react";
-import { type GuessObjectType } from "./Guess.tsx";
+import { type GuessObject } from "../Contexts.ts";
 
 
 const hintColorMap: Record<string, string> = {
@@ -22,9 +22,9 @@ const hintArrowMap: Record<string, string> = {
     "correct": checkmark
 }
 
-let previousGuessObject: GuessObjectType | null = null;
+let previousGuessObject: GuessObject | null = null;
 
-export function PreviousGuess(props: {guessObject: GuessObjectType}) {
+export function PreviousGuess(props: {guessObject: GuessObject}) {
     const [distanceHint, setDistanceHint] = useState("");
     const [imageSrc, setImageSrc] = useState<string | undefined>(undefined);
 
