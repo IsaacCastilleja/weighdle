@@ -1,10 +1,10 @@
 import styles from "./HowToPlayModal.module.css"
 import {PreviousGuess} from "./PreviousGuess.tsx";
 
-export function HowToPlayModal() {
+export function HowToPlayModal(props: {visible: boolean}) {
     return (
         <>
-            <div className={styles.modalContainer}>
+            <div className={styles.modalContainer} style={{display: !props.visible ? "none" : "flex"}}>
                 <div className={styles.modal}>
                     <h1>How to play</h1>
                     <h2><u>The Game</u></h2>

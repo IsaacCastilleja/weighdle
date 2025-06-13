@@ -1,7 +1,9 @@
-import './App.css'
+import './App.css';
+import questionMark from './assets/questionMarkIcon.svg';
+import stats from './assets/statsIcon.svg';
 import Game from "./components/Game.tsx";
 import {useEffect, useState} from "react";
-import { getQuestion } from './services/backendService.ts'
+import { getQuestion } from './services/backendService.ts';
 import {type GameState, type Question, StoredGameStateContext} from "./Contexts.ts";
 import 'animate.css';
 import skeletonLogo from "./assets/scaledleLogoSkeleton.svg";
@@ -36,9 +38,11 @@ function App() {
     <>
         <StoredGameStateContext value={storedGameState}>
             <div className="site-container">
-                <div className="top-bar">
+                <div className={"top-bar"}>
+                    <button className={"top-bar-button"}><img src={questionMark} alt={"Help"}/></button>
                     <h1 className={"title"}> Weighdle </h1>
-                    <HowToPlayModal />
+                    <button className={"top-bar-button"}><img src={stats} alt={"Stats"}/></button>
+                    <HowToPlayModal visible={false}/>
                 </div>
                 <Game question={question} puzzleNumber={puzzleNumber}></Game>
             </div>

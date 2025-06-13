@@ -49,13 +49,29 @@ html, body {
   display: flex;
   flex-shrink: 1;
   width: 40%;
-  justify-content: center;
+  justify-content: space-between;
   border-bottom: 5px solid var(--font-color);
+}
+
+.top-bar-button {
+  display: flex;
+  flex-shrink: 1;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  border: none;
+  background: var(--game-background-color);
+}
+
+.top-bar-button img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 @media (width < 1200px) {
   .game-background {
-    display: none;
+    width: 100vw;
   }
   .top-bar {
     width: 100%;
