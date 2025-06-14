@@ -1,7 +1,22 @@
 import styles from "./StatsModal.module.css"
 import closeIcon from "../assets/closeIcon.svg"
+import type {GameStats} from "../Contexts.ts";
 
-export function StatsModal(props: {visible: boolean, onModalClose: () => void, animateClass: string}) {
+export function StatsModal(props: {
+    visible: boolean,
+    onModalClose: () => void,
+    animateClass: string,
+    storedStats: GameStats,
+}) {
+
+    function calcWidth(wonOn: number) {
+        let width = 10; // min width
+        if(props.storedStats.gamesWon > 0){
+            width += wonOn / props.storedStats.gamesWon;
+        }
+        return `${width}%`
+    }
+
     return (
         <>
             <div className={styles.modalContainer} style={{display: !props.visible ? "none" : "flex"}}>

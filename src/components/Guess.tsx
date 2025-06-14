@@ -70,7 +70,7 @@ export function Guess(props: {
             case ACTIONS.UPDATE_GAME_STATE:
                 prevState = action.payload;
         }
-        localStorage.setItem(puzzleNumber, JSON.stringify(prevState));
+        localStorage.setItem("gameState", JSON.stringify({[puzzleNumber]: prevState }));
         return prevState
     }
 

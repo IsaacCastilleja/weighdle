@@ -12,10 +12,27 @@ export interface GuessObject {
     colorHint: "none" | "close" | "far" | "correct";
 }
 
+export interface StoredData {
+    gameStates: {puzzleNumber: number, gameState: GameState},
+    gameStats: GameStats,
+}
+
 export interface GameState {
     previousGuesses: GuessObject[],
     previousGuessCount: number,
     playerWon: WIN_STATE,
+}
+
+export interface GameStats {
+    gamesPlayed: number,
+    gamesWon: number,
+    currentStreak: number,
+    maxStreak: number,
+    wonOnOne: number,
+    wonOnTwo: number,
+    wonOnThree: number,
+    wonOnFour: number,
+    wonOnFive: number,
 }
 
 export type WIN_STATE = "WON" | "LOST" | "DNF";
