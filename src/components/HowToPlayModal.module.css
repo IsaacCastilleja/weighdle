@@ -1,0 +1,120 @@
+
+.modalContainer {
+    display: flex;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin: auto;
+    justify-content: center;
+    align-items: start;
+    --animate-duration: 0.5s;
+}
+
+.modal {
+    position: relative;
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    width: min(85vw, 640px);
+    height: min(75vh, 640px);
+    background: var(--game-background-color);
+    border: 5px solid var(--container-border-color);
+    border-radius: var(--question-border-radius);
+    padding: 0 1% 0 1%;
+    overflow: auto;
+}
+
+.modal h1 {
+    text-align: center;
+    border-bottom: 5px solid var(--font-color);
+    max-width: 100%;
+    padding-bottom: 0.5rem;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.modal h2 {
+    margin: 0 0 0.5rem;
+}
+
+.modal h3 {
+    margin: 0 0 0.25rem;
+}
+
+.modal h4 {
+    margin: 0 0 0.25rem;
+}
+
+.modal p {
+    margin-top: 0;
+}
+
+.backdrop {
+    position: fixed;
+    z-index: 4;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    width: 100vw;
+    height: 100vh;
+    opacity: 1;
+}
+
+.bulletContainer {
+    display: flex;
+    min-width: 100%;
+    justify-content: start;
+}
+
+.bulletPoint {
+    display: flex;
+    justify-content: center;
+    width: 1.5rem;
+}
+
+.bulletText {
+    display: inline-block;
+    width: 100%;
+}
+
+.verticalLineSeparator {
+    display: flex;
+    min-width: 100%;
+    height: min-content;
+    margin-top: 5px;
+    border-top: 3px solid var(--font-color)
+}
+
+.guessExampleContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 1;
+    min-width: 0;
+    margin-bottom: 1.0rem;
+}
+
+.exitButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: none;
+}
+
+.exitButtonImage {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+@media (prefers-color-scheme: light) {
+    .exitButtonImage {
+        filter: invert(1);
+    }
+}

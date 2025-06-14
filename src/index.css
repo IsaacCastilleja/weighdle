@@ -44,7 +44,9 @@ body {
     --container-border-color: gainsboro;
     --input-border-color: lightsteelblue;
     --image-background-color: gainsboro;
-
+  }
+  .top-bar-button img{
+    filter: invert(1);
   }
   a:hover {
     color: #747bff;

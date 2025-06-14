@@ -39,7 +39,9 @@ export function Game(props: {question: Question, puzzleNumber: number}) {
     }
 
     function animateVictory() {
+        if(confettiPlayed) return;
         controller.current?.shoot();
+        setConfettiPlayed(true);
     }
 
     const controller = useRef<TConductorInstance>(undefined);
@@ -53,6 +55,7 @@ export function Game(props: {question: Question, puzzleNumber: number}) {
     const [answerHidden, setAnswerHidden] = useState(true);
     const [answerString, setAnswerString] = useState("");
     const [animation, setAnimation] = useState("");
+    const [confettiPlayed, setConfettiPlayed] = useState(false);
 
     return (
         <>

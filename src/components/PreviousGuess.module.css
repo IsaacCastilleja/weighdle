@@ -21,6 +21,11 @@
     padding: 0 5px;
 }
 
+.Guess:disabled {
+    opacity: 1;
+    background-color: var(--container-background-color);
+}
+
 .HintContainer {
     height: 100%;
     aspect-ratio: 1;
