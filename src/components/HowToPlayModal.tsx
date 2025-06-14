@@ -2,11 +2,11 @@ import styles from "./HowToPlayModal.module.css"
 import {PreviousGuess} from "./PreviousGuess.tsx";
 import closeIcon from "../assets/closeIcon.svg"
 
-export function HowToPlayModal(props: {visible: boolean, onModalClose: () => void}) {
+export function HowToPlayModal(props: {visible: boolean, onModalClose: () => void, animateClass: string}) {
     return (
         <>
             <div className={styles.modalContainer} style={{display: !props.visible ? "none" : "flex"}}>
-                <div className={styles.modal}>
+                <div className={styles.modal + ` ${props.animateClass}`}>
                     <h1>How to play</h1>
                     <h2><u>The Game</u></h2>
                     <h3>Guess the weight of the displayed item!</h3>

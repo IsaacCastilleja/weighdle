@@ -14,6 +14,7 @@ function App() {
     const [puzzleNumber, setPuzzleNumber] = useState(1);
     const [storedGameState, setStoredGameState] = useState<GameState | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState(false);
+    const [animateModal, setAnimateModal] = useState("");
 
     useEffect(() => {
         getQuestion()
@@ -37,6 +38,7 @@ function App() {
 
     function HandleToggleModal() {
         setModalVisible(!modalVisible)
+        setAnimateModal(!modalVisible ? " animate__animated animate__fadeIn" : "")
     }
 
   return (
@@ -51,7 +53,7 @@ function App() {
                 <Game question={question} puzzleNumber={puzzleNumber}></Game>
             </div>
             <div className="game-background"></div>
-            <HowToPlayModal onModalClose={HandleToggleModal} visible={modalVisible}/>
+            <HowToPlayModal animateClass={animateModal} onModalClose={HandleToggleModal} visible={modalVisible}/>
         </StoredGameStateContext>
     </>
   )
