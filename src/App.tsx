@@ -8,6 +8,7 @@ import {type GameState, type Question, StoredGameStateContext} from "./Contexts.
 import 'animate.css';
 import skeletonLogo from "./assets/scaledleLogoSkeleton.svg";
 import {HowToPlayModal} from "./components/HowToPlayModal.tsx";
+import {StatsModal} from "./components/StatsModal.tsx";
 
 function App() {
     const [question, setQuestion] = useState<Question>({name: "", weight: undefined, image: skeletonLogo});
@@ -15,6 +16,9 @@ function App() {
     const [storedGameState, setStoredGameState] = useState<GameState | undefined>(undefined);
     const [modalVisible, setModalVisible] = useState(false);
     const [animateModal, setAnimateModal] = useState("");
+
+    const [statsModalVisible, setStatsModalVisible] = useState(false);
+    const [animateStatsModal, setAnimateStatsModal] = useState("");
 
     useEffect(() => {
         getQuestion()
@@ -41,6 +45,11 @@ function App() {
         setAnimateModal(!modalVisible ? " animate__animated animate__fadeIn" : "")
     }
 
+    function HandleToggleStatsModal() {
+        setStatsModalVisible(!statsModalVisible)
+        setAnimateStatsModal(!statsModalVisible ? " animate__animated animate__fadeIn" : "")
+    }
+
   return (
     <>
         <StoredGameStateContext value={storedGameState}>
@@ -48,12 +57,13 @@ function App() {
                 <div className={"top-bar"}>
                     <button className={"top-bar-button"} onClick={HandleToggleModal}><img src={questionMark} alt={"Help"}/></button>
                     <h1 className={"title"}> Weighdle </h1>
-                    <button className={"top-bar-button"}><img src={stats} alt={"Stats"}/></button>
+                    <button className={"top-bar-button"} onClick={HandleToggleStatsModal}><img src={stats} alt={"Stats"}/></button>
                 </div>
                 <Game question={question} puzzleNumber={puzzleNumber}></Game>
             </div>
             <div className="game-background"></div>
             <HowToPlayModal animateClass={animateModal} onModalClose={HandleToggleModal} visible={modalVisible}/>
+            <StatsModal visible={statsModalVisible} onModalClose={HandleToggleStatsModal} animateClass={animateStatsModal}/>
         </StoredGameStateContext>
     </>
   )
