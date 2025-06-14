@@ -39,7 +39,7 @@ html, body {
   align-items: center;
   height: 100%;
   width: 50vw;
-  position: absolute;
+  position: fixed;
   background-color: var(--game-background-color);
   z-index: -5;
   filter: drop-shadow(0 0 5vw var(--game-background-shadow));
