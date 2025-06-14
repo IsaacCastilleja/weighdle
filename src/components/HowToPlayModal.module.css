@@ -10,6 +10,7 @@
 }
 
 .modal {
+    position: relative;
     margin-top: 4rem;
     display: flex;
     flex-direction: column;
@@ -90,4 +91,29 @@
     flex-shrink: 1;
     min-width: 0;
     margin-bottom: 1.0rem;
+}
+
+.exitButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: none;
+}
+
+.exitButtonImage {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+}
+
+@media (prefers-color-scheme: light) {
+    .exitButtonImage {
+        filter: invert(1);
+    }
 }

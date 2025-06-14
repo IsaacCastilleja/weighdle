@@ -1,7 +1,8 @@
 import styles from "./HowToPlayModal.module.css"
 import {PreviousGuess} from "./PreviousGuess.tsx";
+import closeIcon from "../assets/closeIcon.svg"
 
-export function HowToPlayModal(props: {visible: boolean}) {
+export function HowToPlayModal(props: {visible: boolean, onModalClose: () => void}) {
     return (
         <>
             <div className={styles.modalContainer} style={{display: !props.visible ? "none" : "flex"}}>
@@ -35,10 +36,9 @@ export function HowToPlayModal(props: {visible: boolean}) {
                         <PreviousGuess guessObject={{guessText: "15 lbs", arrowState: "correct", colorHint: "correct"}} guessNumber={1} />
                         <span>This hint means that the guess is <strong>correct</strong> by being within <strong>10%</strong> of it!</span>
                     </div>
-
-
+                    <button className={styles.exitButton} onClick={props.onModalClose}><img className={styles.exitButtonImage} src={closeIcon} alt={"close"}/></button>
                 </div>
-                <div className={styles.backdrop}></div>
+                <div className={styles.backdrop} onClick={props.onModalClose}></div>
             </div>
         </>
     );
