@@ -12,15 +12,16 @@ export interface GuessObject {
     colorHint: "none" | "close" | "far" | "correct";
 }
 
-export interface StoredData {
-    gameStates: {puzzleNumber: number, gameState: GameState},
-    gameStats: GameStats,
-}
-
 export interface GameState {
     previousGuesses: GuessObject[],
     previousGuessCount: number,
     playerWon: WIN_STATE,
+}
+
+
+export interface GameStatsObject {
+    gameStats: GameStats,
+    onStatsUpdated: (newStats: GameStats) => void;
 }
 
 export interface GameStats {
@@ -39,5 +40,5 @@ export type WIN_STATE = "WON" | "LOST" | "DNF";
 export type Units = "lbs" | "oz" | "kg" | "g";
 
 
-export const QuestionContext = createContext<Question | null>(null);
+export const StoredGameStatsContext = createContext<GameStatsObject | undefined>(undefined);
 export const StoredGameStateContext = createContext<GameState | undefined>(undefined);

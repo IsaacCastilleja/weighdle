@@ -10,9 +10,9 @@ export function StatsModal(props: {
 }) {
 
     function calcWidth(wonOn: number) {
-        let width = 10; // min width
+        let width = 5; // min width
         if(props.storedStats.gamesWon > 0){
-            width += wonOn / props.storedStats.gamesWon;
+            width += Math.round(wonOn / props.storedStats.gamesWon * 100);
         }
         return `${width}%`
     }
@@ -25,19 +25,19 @@ export function StatsModal(props: {
                     <div className={styles.statsContainer}>
                         <div className={styles.statItem}>
                             <h3>Games Played</h3>
-                            <span>20</span>
+                            <span>{props.storedStats.gamesPlayed}</span>
                         </div>
                         <div className={styles.statItem}>
                             <h3>Win %</h3>
-                            <span>100%</span>
+                            <span>{Math.round(props.storedStats.gamesWon / props.storedStats.gamesPlayed * 100)}%</span>
                         </div>
                         <div className={styles.statItem}>
                             <h3>Current Streak</h3>
-                            <span>40</span>
+                            <span>{props.storedStats.currentStreak}</span>
                         </div>
                         <div className={styles.statItem}>
                             <h3>Max Streak</h3>
-                            <span>100</span>
+                            <span>{props.storedStats.maxStreak}</span>
                         </div>
                     </div>
                     <div className={styles.guessDistributionContainer}>
@@ -45,32 +45,32 @@ export function StatsModal(props: {
                         <div className={styles.chart}>
                             <div className={styles.chartItem}>
                                 <span className={styles.chartLabel}>1</span>
-                                <div className={styles.chartBar} style={{width: "20%"}}>
-                                    <span className={styles.chartBarValueLabel}>1</span>
+                                <div className={styles.chartBar} style={{width: calcWidth(props.storedStats.wonOnOne)}}>
+                                    <span className={styles.chartBarValueLabel}>{props.storedStats.wonOnOne}</span>
                                 </div>
                             </div>
                             <div className={styles.chartItem}>
                                 <span className={styles.chartLabel}>2</span>
-                                <div className={styles.chartBar} style={{width: "30%"}}>
-                                    <span className={styles.chartBarValueLabel}>1</span>
+                                <div className={styles.chartBar} style={{width: calcWidth(props.storedStats.wonOnTwo)}}>
+                                    <span className={styles.chartBarValueLabel}>{props.storedStats.wonOnTwo}</span>
                                 </div>
                             </div>
                             <div className={styles.chartItem}>
                                 <span className={styles.chartLabel}>3</span>
-                                <div className={styles.chartBar} style={{width: "60%"}}>
-                                    <span className={styles.chartBarValueLabel}>1</span>
+                                <div className={styles.chartBar} style={{width: calcWidth(props.storedStats.wonOnThree)}}>
+                                    <span className={styles.chartBarValueLabel}>{props.storedStats.wonOnThree}</span>
                                 </div>
                             </div>
                             <div className={styles.chartItem}>
                                 <span className={styles.chartLabel}>4</span>
-                                <div className={styles.chartBar} style={{width: "10%"}}>
-                                    <span className={styles.chartBarValueLabel}>1</span>
+                                <div className={styles.chartBar} style={{width: calcWidth(props.storedStats.wonOnFour)}}>
+                                    <span className={styles.chartBarValueLabel}>{props.storedStats.wonOnFour}</span>
                                 </div>
                             </div>
                             <div className={styles.chartItem}>
                                 <span className={styles.chartLabel}>5</span>
-                                <div className={styles.chartBar} style={{width: "20%"}}>
-                                    <span className={styles.chartBarValueLabel}>1</span>
+                                <div className={styles.chartBar} style={{width: calcWidth(props.storedStats.wonOnFive)}}>
+                                    <span className={styles.chartBarValueLabel}>{props.storedStats.wonOnFive}</span>
                                 </div>
                             </div>
                         </div>

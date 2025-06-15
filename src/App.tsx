@@ -4,7 +4,13 @@ import stats from './assets/statsIcon.svg';
 import Game from "./components/Game.tsx";
 import {useEffect, useState} from "react";
 import { getQuestion } from './services/backendService.ts';
-import {type GameState, type GameStats, type Question, StoredGameStateContext} from "./Contexts.ts";
+import {
+    type GameState,
+    type GameStats,
+    type Question,
+    StoredGameStateContext,
+    StoredGameStatsContext
+} from "./Contexts.ts";
 import 'animate.css';
 import skeletonLogo from "./assets/scaledleLogoSkeleton.svg";
 import {HowToPlayModal} from "./components/HowToPlayModal.tsx";
@@ -57,6 +63,7 @@ function App() {
     function retrieveStoredGameStats() {
         const stored = localStorage.getItem("gameStats");
         if(!stored) {
+            localStorage.setItem("gameStats", JSON.stringify(defaultGameStats));
             return defaultGameStats;
         }
         const parsed: GameStats = JSON.parse(stored);
@@ -73,8 +80,13 @@ function App() {
         setAnimateStatsModal(!statsModalVisible ? " animate__animated animate__fadeIn" : "")
     }
 
+    function HandleStatsUpdated(newStats: GameStats) {
+        setStoredGameStats(newStats)
+    }
+
   return (
     <>
+        <StoredGameStatsContext value={{gameStats: storedGameStats, onStatsUpdated: HandleStatsUpdated}}>
         <StoredGameStateContext value={storedGameState}>
             <div className="site-container">
                 <div className={"top-bar"}>
@@ -88,6 +100,7 @@ function App() {
             <HowToPlayModal animateClass={animateModal} onModalClose={HandleToggleModal} visible={modalVisible}/>
             <StatsModal storedStats={storedGameStats} visible={statsModalVisible} onModalClose={HandleToggleStatsModal} animateClass={animateStatsModal}/>
         </StoredGameStateContext>
+        </StoredGameStatsContext>
     </>
   )
 }
