@@ -29,7 +29,7 @@ export function StatsModal(props: {
                         </div>
                         <div className={styles.statItem}>
                             <h3>Win %</h3>
-                            <span>{Math.round(props.storedStats.gamesWon / props.storedStats.gamesPlayed * 100)}%</span>
+                            <span>{Math.round(props.storedStats.gamesWon / props.storedStats.gamesPlayed * 100) || 0}%</span>
                         </div>
                         <div className={styles.statItem}>
                             <h3>Current Streak</h3>
