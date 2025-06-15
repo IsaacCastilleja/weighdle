@@ -35,7 +35,9 @@
 }
 
 .modal h2 {
-    margin: 0.5rem 0 0.5rem;
+    margin: 0 7.5% 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 5px solid var(--font-color);
     text-align: center;
 }
 
@@ -70,15 +72,6 @@
     border-top: 3px solid var(--font-color)
 }
 
-.guessExampleContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex-shrink: 1;
-    min-width: 0;
-    margin-bottom: 1.0rem;
-}
-
 .exitButton {
     display: flex;
     align-items: center;
@@ -103,14 +96,9 @@
     width: 100%;
     justify-items: center;
     align-items: center;
-    grid-template-areas:
-        "header header"
-        "value value"
-        "header header"
-        "value value";
-
     grid-template-columns: 1fr 1fr;
     gap: 10px 10px;
+    flex-shrink: 1;
 }
 
 .statItem {
@@ -135,7 +123,7 @@
 
 .chart {
     display: flex;
-    flex-grow: 1;
+    flex-shrink: 1;
     flex-direction: column;
     gap: 1rem;
     justify-content: start;
