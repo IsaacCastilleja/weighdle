@@ -18,9 +18,27 @@ export interface GameState {
     playerWon: WIN_STATE,
 }
 
+
+export interface GameStatsObject {
+    gameStats: GameStats,
+    onStatsUpdated: (newStats: GameStats) => void;
+}
+
+export interface GameStats {
+    gamesPlayed: number,
+    gamesWon: number,
+    currentStreak: number,
+    maxStreak: number,
+    wonOnOne: number,
+    wonOnTwo: number,
+    wonOnThree: number,
+    wonOnFour: number,
+    wonOnFive: number,
+}
+
 export type WIN_STATE = "WON" | "LOST" | "DNF";
 export type Units = "lbs" | "oz" | "kg" | "g";
 
 
-export const QuestionContext = createContext<Question | null>(null);
+export const StoredGameStatsContext = createContext<GameStatsObject | undefined>(undefined);
 export const StoredGameStateContext = createContext<GameState | undefined>(undefined);

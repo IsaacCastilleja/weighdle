@@ -8,7 +8,14 @@ import {
 } from "react";
 import {PreviousGuess} from "./PreviousGuess.tsx";
 import enterIconLight from "../assets/enterIconLightOutline.svg";
-import {type GameState, type Units, type WIN_STATE, type GuessObject, StoredGameStateContext} from "../Contexts.ts";
+import {
+    type GameState,
+    type Units,
+    type WIN_STATE,
+    type GuessObject,
+    StoredGameStateContext,
+    StoredGameStatsContext
+} from "../Contexts.ts";
 
 
 const maxGuesses = 4;
@@ -43,6 +50,7 @@ export function Guess(props: {
     const [inputValue, setInputValue] = useState("");
     const [inputUnit, setInputUnit] = useState<Units>("lbs");
     const storedState = useContext(StoredGameStateContext);
+    const storedStats = useContext(StoredGameStatsContext);
     const answer = props.answer;
 
     const defaultGuessObject: GuessObject[] = Array.from({ length: 5 }, () => ({
@@ -55,6 +63,44 @@ export function Guess(props: {
         props.onGameOver(playerWon);
     }, [props]);
 
+    let statsUpdated = false;
+    function updateStoredStats(playerWon: boolean, guessCount: number) {
+        const stats = storedStats?.gameStats;
+        if(!stats || statsUpdated) return;
+        stats.gamesPlayed += 1;
+
+        if(playerWon){
+            stats.gamesWon++;
+            stats.currentStreak++;
+            stats.maxStreak = Math.max(stats.maxStreak, stats.currentStreak);
+            switch (guessCount) {
+                case 0:
+                    stats.wonOnOne++;
+                    break;
+                case 1:
+                    stats.wonOnTwo++;
+                    break;
+                case 2:
+                    stats.wonOnThree++;
+                    break;
+                case 3:
+                    stats.wonOnFour++;
+                    break;
+                case 4:
+                    stats.wonOnFive++;
+                    break;
+                default:
+                    break;
+            }
+        }
+        else {
+            stats.currentStreak = 0;
+        }
+        localStorage.setItem("gameStats", JSON.stringify(stats));
+        statsUpdated = true;
+        storedStats?.onStatsUpdated(stats);
+    }
+
     function reducer(state: GameState, action: GameStateDispatch) {
         let prevState = state;
         switch (action.type) {
@@ -64,13 +110,16 @@ export function Guess(props: {
             case ACTIONS.UPDATE_GUESSES:
                 prevState.previousGuesses = action.payload.previousGuesses;
                 break;
-            case ACTIONS.UPDATE_WIN_STATE:
+            case ACTIONS.UPDATE_WIN_STATE: {
                 prevState.playerWon = action.payload.playerWon;
+                if(action.payload.playerWon === "DNF") break;
+                updateStoredStats(action.payload.playerWon === "WON", prevState.previousGuessCount);
                 break;
+            }
             case ACTIONS.UPDATE_GAME_STATE:
                 prevState = action.payload;
         }
-        localStorage.setItem(puzzleNumber, JSON.stringify(prevState));
+        localStorage.setItem("gameState", JSON.stringify({[puzzleNumber]: prevState }));
         return prevState
     }
 
